@@ -1,0 +1,2100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,height=device-height" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Majhul Number</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- MetisMenu CSS -->
+    <link href="metisMenu/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="autocomplete/jquery.auto-complete.css" />
+
+
+
+    <!-- jQuery -->
+    <!--<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>-->
+
+    <script src="js/jquery.min.js"></script>
+
+    <script src="autocomplete/jquery.autocomplete.js"></script>
+
+    <script src="js/iosBridge.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+
+            $('#cmbcountries').change(function () {
+                var option_c_flag = $('option:selected', this).attr('flg');
+                var option_c_code = $('option:selected', this).attr('ccode');
+                $('#imgcountryflag').attr('src', option_c_flag);
+                $('#spn_selected_country_code').html(option_c_code);
+                //$('#spn_selected_country').html('<img src="' + option_c_flag + '" style="width: 24px;" /> ' + option_c_code);
+                searfor();
+            });
+
+
+            try {
+                AndroidFunction.device_ready();
+            }
+            catch (err) {
+                // document.getElementById("demo").innerHTML = err.message;
+            }
+            //send_push_params(0);
+
+        });
+
+        function locatePhoneNumber(lastCallnumber_L) {
+
+            if (lastCallnumber_L != null) {
+                if (lastCallnumber_L != "") {
+                    lastCallnumber_L = lastCallnumber_L.replace('n', '');
+
+                    $('#srch-term').val(lastCallnumber_L);
+                    searfor();
+                }
+            }
+
+        }
+    </script>
+    <script language="javascript">
+    function fillparams(all_p) {
+        var arr_p = all_p.split("~");
+        if (arr_p != null) {
+
+            $('#txt_devuid').val(arr_p[0]);
+            $('#txt_platform').val(arr_p[1]);
+            $("#txt_version").val(arr_p[2]);
+            $("#txt_name").val(arr_p[3]);
+            $("#txt_sim_country_iso").val(arr_p[4]);
+            $("#txt_local_language").val(arr_p[5]);
+            $('#txt_user_level').val(arr_p[15]);
+
+
+            $("#inptsrvuid").val(arr_p[6]);
+
+            $('#fullname').val(arr_p[7]);
+            $('#phonenbr').val(arr_p[8]);
+            $('#email').val(arr_p[9]);
+            $('#address').val(arr_p[10]);
+
+            $('#txt_lat').val(arr_p[11]);
+            $('#txt_lng').val(arr_p[12]);
+
+            if ($("#txt_sim_country_iso").val() != "") {
+                $('#cmbcountries').val($("#txt_sim_country_iso").val());
+                $('#defaultCountry').val($("#txt_sim_country_iso").val());
+                var option_c_flag = $('option:selected', $('#cmbcountries')).attr('flg');
+                var option_c_code = $('option:selected', $('#cmbcountries')).attr('ccode');
+                $('#imgcountryflag').attr('src', option_c_flag);
+                $('#spn_selected_country_code').html(option_c_code);
+            }
+            //$('#cmbcountries').trigger("change");
+
+            // check_for_my_identity();
+
+            // fillmyprofile();
+
+
+            if ($("#inptsrvuid").val() != "") {
+                $('#btn_activate_deactivate').css('display', '');
+                $('#btn_activate_deactivate_inner_text').html(" De-activate");
+                $('#activate_deactivate_myModalbody').html("Are you sure you want to deactivate your account.");
+                $('#txt_next_account_status').val('d');
+                $('#btn_add_nick_name').css('display', '');
+            }
+            else {
+                $('#btn_activate_deactivate').css('display', 'none');
+                $('#btn_add_nick_name').css('display', 'none');
+
+            }
+
+            if (arr_p[13] != null) {
+                if (arr_p[13] != "") {
+                    if (arr_p[13] == "a") {
+                        $('#activate_deactivate_myModalbody').html("Are you sure you want to deactivate your account.");
+                        $('#btn_activate_deactivate_inner_text').html(" De-activate");
+                        $('#txt_next_account_status').val('d');
+
+                    }
+                    else {
+                        $('#activate_deactivate_myModalbody').html("Are you sure you want to reactivate your account.");
+                        $('#btn_activate_deactivate_inner_text').html(" Re-activate");
+                        $('#txt_next_account_status').val('a');
+
+                    }
+                }
+            }
+
+         //   $("#defaultCountry").val(arr_p[14]);
+
+            if ($('#txt_devuid').val() != "") {
+                if ($('#fullname').val() == "") {
+                    if ($('#phonenbr').val() == "") {
+                        check_for_my_identity_on_the_server();
+                    }
+                }
+            }
+            startup();
+
+            getpointscenter_quick();
+            getadynamdata();
+
+
+        }
+
+    }
+
+    function send_to_native() {
+        var sel_c = $('option:selected', $('#defaultCountry')).val();
+        var st = $('#fullname').val() + "~" + $('#phonenbr').val() + "~" + $('#email').val() + "~" + $('#address').val() + "~" + $('#inptsrvuid').val() + "~" + sel_c;
+        AndroidFunction.save_params(st);
+    }
+
+
+    </script>
+
+
+
+</head>
+<body style="line-height: 1.2 !important;zoom:95%;">
+
+    <div id="device_info" style="display: none;">
+        <input type="text" id="txt_devuid" />
+        <input type="text" id="txt_platform" />
+        <input type="text" id="txt_version" />
+        <input type="text" id="txt_name" />
+        <input type="text" id="txt_width" />
+        <input type="text" id="txt_height" />
+        <input type="text" id="txt_colorDepth" />
+        <input type="text" id="netwState" />
+        <input type="text" id="coord" />
+        <input type="text" id="txtm_model" />
+        <input type="text" id="txt_sim_country_iso" />
+        <input type="text" id="txt_local_language" value="en" />
+        <input type="text" id="txt_app_name" value="com.majhulcallerid" />
+        <input type="text" id="txt_app_version" value="2" />
+        <input type="text" id="inptsrvuid" value="" />
+        <input type="text" id="myverifiedphonenumber" value="" />
+        <input type="hidden" id="outAppShareText" value=" Majhul Number Best Free app! Try it now http://majhul.net/m?u=app" />
+        <input type="hidden" id="loadeditemids" />
+        <input type="hidden" id="searchsourceofnative" />
+        <input type="hidden" id="txt_lat" value="" />
+        <input type="hidden" id="txt_lng" value="" />
+        <input type="hidden" id="txt_user_level" />
+        <input type="hidden" id="txt_secret_load_more" value="0" />
+    </div>
+    <div id="maincoinssystem" style="z-index: 99999999;
+            position: fixed;
+            top:0px;
+            height: 100%;
+            bottom: 0px;
+            width: 100%;
+            background: #F3F7F9;
+            display:none;">
+        <table style="width: 100%;" id="tbproducts" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr style="background-color: #FFFFFF;height:64px;border-bottom: 3px solid #D7D7D7;">
+                    <td style="width:90%;">
+                        <div id="dvtranslaststatus" style="padding: 2px;color: #000000;font-size: 20pt;width: 100%;text-align: center; margin-left: 30px;">
+                            <span style="margin-left:auto;margin-right:auto;"> Premium </span>
+                        </div>
+                    </td>
+                    <td align="left" id="btnclosesexoopointscenter" style="width:10%;padding-right: 10px;">
+                        <span style="margin-left:auto;margin-right:auto;font-size:17px;color:#33AA5A;"> Done </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;" colspan="2">
+                        <img src="img/in-app-coins.png" style="width:150px;" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="text-align:left;padding-left:20px;margin-top:20px;">
+                        <span style="font-size:15pt;"><b>Coins Benefits</b></span>
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td colspan="2" style="text-align:left;padding-left:60px;padding-top: 20px;">
+                        <img src="img/in-app-add-icon.png" style="width: 38px;float: left;margin-left: -47px;">
+                        <div style="font-size:12pt;margin-right: 10px;">
+                            Increase your balance by 500 coins to search
+                            by name, places Or to remove ads.
+                        </div>
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:left;padding-left:60px;">
+                        <div id="btn_remove_ads_handler" style="height: 30px">
+                            <img src="img/remove-ads-icon.png" style="width: 38px;float: left;margin-left: -47px;margin-top: -7px;">
+                            <div style="font-size:12pt">
+                                Remove ads
+                            </div>
+                        </div>
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" id="dynamictdforpay">
+                        <table style="width: 100%">
+                            <tbody>
+
+                                <tr class="trccproductsno" id="tr_share_my_phone_book" style="display:none;">
+                                    <td colspan="2" style="text-align: center;padding-bottom:10px;padding-top:10px;">
+                                        <div class="dvaproductno" id="dvaproduct_synch">
+                                            <input type="button" class="cls_green_button" style="background-color:#339346;color:#FFFFFF;margin-top:5px;width: 70%; min-height: 38px;"
+                                                   value="Share my phone book"
+                                                   data-role="none" />
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="trccproducts" style="padding-top:20px;">
+                                    <td>
+                                        <div id="btn_get_more_coins_for_free" style="background-color:#FBFBFB;color:#333333;margin-left:18px; width:182px;height:68px;float:left;border:solid 2px #808080;text-align:center;padding-top:20px;font-size:10pt;">
+                                            <i class="fa fa-heart-o fa-fw"></i>  Get for free
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div id="btn_get_more_coins_in_app_1" style="background-color:#33CC5A;color:#FFFFFF;margin-right:18px; width:182px;height:68px;float:right;border:solid 2px #808080;text-align:center;padding-top:15px;font-size:10pt;">
+                                            <i class="fa fa-money fa-fw"></i>  <span style="width:100%;">Get 500 coins </span><br /> for <span style="width:100%;" id="spn_local_in_app_price">$4.99</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="mainsubscriptionsystem" style="z-index: 99999999;
+            position: fixed;
+            top:0px;
+            height: 100%;
+            bottom: 0px;
+            width: 100%;
+            background: #F3F7F9;
+            display:none;">
+        <table style="width: 100%;" id="tbproducts" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="background-color: #FFFFFF;height:64px;border-bottom: 3px solid #D7D7D7;">
+                <td style="width:90%;">
+                    <div id="dvsubscriptiontranslaststatus" style="padding: 2px;color: #000000;font-size: 12pt;width: 100%;text-align: center; margin-left: 30px;">
+                        <span style="margin-left:auto;margin-right:auto;"> Subscribe to VIP Services </span>
+                    </div>
+                </td>
+                <td align="left" id="btnclosemainsubscriptionsystem" style="width:10%;padding-right: 10px;">
+                    <span style="margin-left:auto;margin-right:auto;font-size:17px;color:#33AA5A;"> Done </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;" colspan="2">
+                    <img src="img/vip_icon.png" style="width:100px;" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align:center;padding-left:20px;margin-top:20px;color:#3CCA5F">
+                    <span style="font-size:14pt;"><b>Only for VIP Members</b></span>
+                </td>
+            </tr>
+
+            <tr>
+
+                <td colspan="2" style="text-align:left;padding-left:60px;padding-top: 50px;">
+                    <div style="font-size:10pt;">
+                        <b>Subscribe and Join our VIP Members list</b>
+                    </div>
+                    <hr>
+
+                </td>
+            </tr>
+
+            <tr>
+
+                <td colspan="2" style="text-align:left;padding-left:20px;padding-top: 10px;padding-bottom:20px;">
+
+                    <div style="font-size:8pt;margin-right: 5px;width:100%;">
+                        <i class="fa fa-check" style="font-size:11pt;color:#3CCA5F"></i>
+                        Unlimited search by name and phone number.
+                    </div>
+                    <div style="font-size:8pt;margin-right: 5px;width:100%;margin-top:10px;">
+                        <i class="fa fa-check" style="font-size:11pt;color:#3CCA5F"></i>
+                        Get the VIP Badge next to you listing in search results.
+                    </div>
+                    <div style="font-size:8pt;margin-right: 5px;width:100%;margin-top:10px;">
+                        <i class="fa fa-check" style="font-size:11pt;color:#3CCA5F"></i>
+                        Unlimited search by email.
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" id="dynamicsubscriptiontdforpay">
+                    <table style="width: 100%">
+                        <tbody>
+
+                        <tr class="trccproducts" style="padding-top:20px;">
+
+                            <td>
+                                <div id="btn_get_vip_subscription_in_app_2" style="background-color:#33CC5A;color:#FFFFFF;margin-right:auto;margin-left:auto; width:90%;height:88px;border:solid 2px #808080;text-align:center;padding-top:15px;font-size:10pt;">
+                                    <span style="width:100%;">SUBSCRIBE</span><br/> FOR ONLY <span style="width:100%;" id="spn_local_subscription_price">$19.99</span> PER MONTH
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="phonenumberverifier" style="z-index: 99999999;position: fixed;top:0px;height: 100%;bottom: 0px;width: 100%;background: #F3F7F9;display:none;">
+        <input type="hidden" id="txt_verification_reason" />
+        <input type="hidden" id="txt_verification_sms_body" />
+
+        <table style="width: 100%;" id="tbproducts" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr style="background-color: #FFFFFF;height:64px;border-bottom: 3px solid #D7D7D7;">
+                    <td style="width:90%;">
+                        <div id="dvtranslaststatus" style="padding: 2px;color: #000000;font-size: 13pt;width: 100%;text-align: left; margin-left: 20px;">
+                            <span style="margin-left:auto;margin-right:auto;"> Verify Phone Number </span>
+                        </div>
+                    </td>
+                    <td align="left" id="btnclosephonenumberverifier" style="width:10%;padding-right: 10px;">
+                        <span style="margin-left:auto;margin-right:auto;font-size:17px;color:#33AA5A;"> Close </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2" style="text-align:center;padding:20px;margin-top: 20px;">
+                        <input id="txt_verification_ccode" style="padding:5px;font-size:13pt;width:15%;float:left;" type="tel" pattern="\d*" value="966">  <input id="txt_verification_phone" style="padding:5px;font-size:13pt;width:84%;float:left;margin-left:2px;" type="tel" pattern="\d*" placeholder="Full phone number here...">
+                        <input id="txt_verification_phone_received_code" style="padding:5px;font-size:13pt;width:84%;float:left;margin-left:2px;display:none;" type="text" pattern="\d*" placeholder="Enter sms code here...">
+                        <br><br>
+
+                        <div style="clear:both;margin-left:5px;margin-top:20px;color:#ff0000">Please do not include the country code.</div>
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="text-align:center;padding:20px;margin-top: 40px;">
+
+                        <div id="btn_send_verification_code" style="background-color:#FBFBFB;color:#333333;margin-left:auto;margin-right:auto; width:220px;height:68px;border:solid 2px #808080;text-align:center;padding-top:20px;font-size:13pt;">
+                            <i class="fa fa-envelope-square fa-fw" style="font-size:15pt;"></i>  Verify
+                        </div>
+
+                        <div id="btn_check_received_verification_code" style="background-color:#FBFBFB;color:#333333;margin-left:auto;margin-right:auto; width:220px;height:68px;border:solid 2px #808080;text-align:center;padding-top:20px;font-size:13pt;display:none;">
+                            <i class="fa fa-envelope-square fa-fw" style="font-size:15pt;"></i>  Finish
+                        </div>
+
+                        <input type="hidden" id="hdng_code" />
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="text-align:center;padding:20px;margin-top: 40px;">
+                        <div id="dv_send_verification_code_status" style="clear:both;margin-left:5px;margin-top:20px;color:#33CC5A"></div>
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" style="top:0px;background: #F3F7F9;margin-bottom: 0;position:absolute !important;z-index: 9999999">
+        <div class="navbar-header" style="width:100%;">
+
+
+            <ul class="nav navbar-top-links navbar-right" style="float:right !important;margin-top:5px;">
+
+                <!-- /.dropdown -->
+                <li class="dropdown" id="drp4" style="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#33CC5A;min-height: 40px;">
+                        <span id="spn_first_letter_fn_ln"></span>  <i class="fa fa-user fa-fw"></i><img src="img/icon_coins.png" style="width:28px;"> <span id="spnofrealbal">0</span>  coins<i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+
+                        <li id="btn_get_more_coins" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;" href="#"><i class="fa fa-money fa-fw"></i> Get More Coins</a>
+                        </li>
+                        <li id="btn_menu_remove_ads" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;" href="#"><i class="fa fa-eraser"></i> Remove Ads </a>
+                        </li>
+                        <li id="btn_side_menu" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><i class="fa fa-user fa-fw"></i> My Profile</a>
+                        </li>
+                        <li id="btn_menu_edit_my_names" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><i class="fa fa-user fa-fw"></i> Edit my names</a>
+                        </li>
+                        <li id="btn_menu_settings" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><i class="fa fa-cog"></i> Settings</a>
+                        </li>
+                        <li id="btn_menu_share_app" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><i class="fa fa-share-alt"></i> Share App</a>
+                        </li>
+                        <li id="btn_menu_get_vip_sub" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><img src="img/vip_icon.png" style="width:26px;" /> Get VIP Membership</a>
+                        </li>
+                        <li id="btn_menu_get_wsm_sub" style="margin-top:15px;margin-left:0px !important;min-height: 40px;">
+                            <a style="min-height: 40px;"><img src="img/wsm_icon.png" style="width:26px;" /> Get Premium Membership</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+            </ul>
+            <img id="btn_nearby_pleaces" src="img/nearby.png" style="width: 24px;
+                    left: 47%;
+                    margin-top: 12px;
+                    position: absolute">
+
+            <div class="navbar-brand" style="padding:8px 5px;">
+                <table>
+                    <tr>
+                        <td>
+                            <img id="header_logo" src="images/ic_actionbar_logo_ujoke22.png" style="width: 100px;">
+                        </td>
+                        <td>
+                            <img src="images/vip_icon_green.png" style="width:24px;display:none;" id="img_vip_sign">
+                        </td>
+                        <td> <img src="images/wsm_icon.png" style="width:24px;display:none;" id="img_wsm_sign"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- /.navbar-header -->
+        <ul class="nav navbar-top-links navbar-right" style="float:none !important;">
+            <li class="dropdown" id="drp1" style="display:none">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                    <em>Yesterday</em>
+                                </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                    <em>Yesterday</em>
+                                </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                    <em>Yesterday</em>
+                                </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>Read All Messages</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-messages -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown" id="drp2" style="display:none">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-tasks">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 1</strong>
+                                    <span class="pull-right text-muted">40% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 2</strong>
+                                    <span class="pull-right text-muted">20% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 3</strong>
+                                    <span class="pull-right text-muted">60% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60% Complete (warning)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 4</strong>
+                                    <span class="pull-right text-muted">80% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                        <span class="sr-only">80% Complete (danger)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>See All Tasks</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-tasks -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown" id="drp3" style="display:none">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-comment fa-fw"></i> New Comment
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                <span class="pull-right text-muted small">12 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-tasks fa-fw"></i> New Task
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>See All Alerts</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-alerts -->
+            </li>
+
+            <!-- /.dropdown -->
+
+            <li class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <span id="spn_selected_country_code" style="font-size: 10pt;position: absolute;z-index: 3;right: 55px;top: 13px;color: #44f;">All</span>
+                    <img src="img/nb/search.png" id="btn_right_side_search_trigger" style="float: left;width: 47px;position: absolute;margin-left: -15px;" />
+                    <input type="text" style="font-size: 10pt; height: 44px;padding-left:34px;width:100%"
+                           placeholder="Search Phones, Names, companies ..."
+                           id="srch-term" name="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="btnsearch" style="height: 38px;display:none;">
+                            <i class="glyphicon glyphicon-search" id="btnsearch_loop"></i>
+                            <i class="glyphicon" id="btnsearch_loading" style="display: none;">
+                                <img style="width: 13px;" src="img/spinner-rosetta-blue.gif" />
+                            </i>
+                        </button>
+                    </div>
+
+
+
+                    <div class="input-group-btn" id="container_of_flags">
+                        <div class="btn" style="height: 38px;padding:4px !important;">
+                            <img id="imgcountryflag" src="cflags/NOTNA.png" style="width: 28px;" />
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="input-group custom-search-form" style="width:100%;display:none;">
+
+                    <select id="cmbcountries" class="form-control" tabindex="-1">
+                        <option value="ALL" ccode="All" flg="cflags/NOTNA.png" selected>All Countries</option>
+                        <option value="af" ccode="+93" flg="cflags/af.png">Afghanistan</option>
+                        <option value="al" ccode="+355" flg="cflags/al.png">Albania</option>
+                        <option value="dz" ccode="+213" flg="cflags/dz.png">Algeria</option>
+                        <option value="as" ccode="+1684" flg="cflags/as.png">American Samoa</option>
+                        <option value="ad" ccode="+376" flg="cflags/ad.png">Andorra</option>
+                        <option value="ao" ccode="+244" flg="cflags/ao.png">Angola</option>
+                        <option value="ai" ccode="+1264" flg="cflags/ai.png">Anguilla</option>
+                        <option value="ag" ccode="+1268" flg="cflags/ag.png">Antigua And Barbuda</option>
+                        <option value="aq" ccode="+6721" flg="cflags/aq.png">Antarctica</option>
+                        <option value="ar" ccode="+54" flg="cflags/ar.png">Argentina</option>
+                        <option value="am" ccode="+374" flg="cflags/am.png">Armenta</option>
+                        <option value="aw" ccode="+297" flg="cflags/aw.png">Aruba</option>
+                        <option value="au" ccode="+61" flg="cflags/au.png">Australia</option>
+                        <option value="at" ccode="+43" flg="cflags/at.png">Austria</option>
+                        <option value="az" ccode="+994" flg="cflags/az.png">Azerbaijan</option>
+
+                        <option value="bs" ccode="+1242" flg="cflags/bs.png">Bahamas</option>
+                        <option value="bh" ccode="+973" flg="cflags/bh.png">Bahrain</option>
+                        <option value="bd" ccode="+880" flg="cflags/bd.png">Bangladesh</option>
+                        <option value="bb" ccode="+1246" flg="cflags/bb.png">Barbados</option>
+                        <option value="by" ccode="+375" flg="cflags/by.png">Belarus</option>
+                        <option value="be" ccode="+32" flg="cflags/be.png">Belgium</option>
+                        <option value="bz" ccode="+501" flg="cflags/bz.png">Belize</option>
+                        <option value="bj" ccode="+229" flg="cflags/bj.png">Benin</option>
+                        <option value="bm" ccode="+1441" flg="cflags/bm.png">Bermuda</option>
+                        <option value="bt" ccode="+975" flg="cflags/bt.png">Bhitan</option>
+                        <option value="bo" ccode="+591" flg="cflags/bo.png">Bolivia, Plurinational State Of</option>
+                        <option value="bq" ccode="+599" flg="cflags/bq.png">Bonaire, Sint Eustatius And Saba</option>
+                        <option value="ba" ccode="+387" flg="cflags/ba.png">Bosnia And Herzegovina</option>
+                        <option value="bw" ccode="+267" flg="cflags/bw.png">Botswana</option>
+                        <option value="bv" ccode="+47" flg="cflags/bv.png">Boubvet Island</option>
+                        <option value="br" ccode="+55" flg="cflags/br.png">Brazil</option>
+                        <option value="io" ccode="+246" flg="cflags/io.png">British Indian Oceam Territory</option>
+                        <option value="bn" ccode="+673" flg="cflags/bn.png">Brunei Darussalam</option>
+                        <option value="bg" ccode="+359" flg="cflags/bg.png">Bulgaria</option>
+                        <option value="bf" ccode="+226" flg="cflags/bf.png">Burkina Faso</option>
+                        <option value="bi" ccode="+257" flg="cflags/bi.png">Burundi</option>
+
+                        <option value="kh" ccode="+57" flg="cflags/kh.png">Cambodia</option>
+                        <option value="cm" ccode="+237" flg="cflags/cm.png">Cameroon</option>
+                        <option value="ca" ccode="+1" flg="cflags/ca.png">Canada</option>
+                        <option value="cv" ccode="+238" flg="cflags/cv.png">Cape Verde</option>
+                        <option value="ky" ccode="+1345" flg="cflags/ky.png">Cayman Islands</option>
+                        <option value="cf" ccode="+236" flg="cflags/cf.png">Central African Republic</option>
+                        <option value="td" ccode="+235" flg="cflags/td.png">Chad</option>
+                        <option value="cl" ccode="+56" flg="cflags/cl.png">Chile</option>
+                        <option value="cn" ccode="+86" flg="cflags/cn.png">China</option>
+                        <option value="cx" ccode="+61" flg="cflags/cx.png">Christmas Island</option>
+                        <option value="cc" ccode="+61" flg="cflags/cc.png">Cocos (Keeling) Islands</option>
+                        <option value="co" ccode="+855" flg="cflags/co.png">Colombia</option>
+                        <option value="cg" ccode="+243" flg="cflags/cg.png">Congo</option>
+                        <option value="cd" ccode="+242" flg="cflags/cd.png">
+                            Congo, The Democtratic Republic
+                            Of The
+                        </option>
+                        <option value="ck" ccode="+682" flg="cflags/ck.png">Cook Islands</option>
+                        <option value="km" ccode="+269" flg="cflags/km.png">Comoros</option>
+                        <option value="cr" ccode="+506" flg="cflags/cr.png">Costa Rica</option>
+                        <option value="ci" ccode="+225" flg="cflags/ci.png">Cote D'livoire</option>
+                        <option value="hr" ccode="+385" flg="cflags/hr.png">Croatia</option>
+                        <option value="cu" ccode="+53" flg="cflags/cu.png">Cuba</option>
+                        <option value="cw" ccode="+599" flg="cflags/cw.png">Curacao</option>
+                        <option value="cy" ccode="+357" flg="cflags/cy.png">Cyprus</option>
+                        <option value="cz" ccode="+420" flg="cflags/cz.png">Czech Republic</option>
+
+                        <option value="dk" ccode="+45" flg="cflags/dk.png">Denmark</option>
+                        <option value="dj" ccode="+253" flg="cflags/dj.png">Djibouti</option>
+                        <option value="dm" ccode="+1767" flg="cflags/dm.png">Dominica</option>
+                        <option value="do" ccode="+1809-1829-1849" flg="cflags/do.png">Dominican Republic</option>
+
+                        <option value="ec" ccode="+593" flg="cflags/ec.png">Ecuador</option>
+                        <option value="eg" ccode="+20" flg="cflags/eg.png">Egypt</option>
+                        <option value="gq" ccode="+240" flg="cflags/gq.png">Equatorial Guinea</option>
+                        <option value="er" ccode="+291" flg="cflags/er.png">Eritrea</option>
+                        <option value="ee" ccode="+372" flg="cflags/ee.png">Estonia</option>
+                        <option value="et" ccode="+251" flg="cflags/et.png">Ethiopia</option>
+
+                        <option value="fk" ccode="+500" flg="cflags/fk.png">Falkland Islands (Malvinas)</option>
+                        <option value="fo" ccode="+298" flg="cflags/fo.png">Faroe Islands</option>
+                        <option value="fj" ccode="+679" flg="cflags/fj.png">Fiji</option>
+                        <option value="fi" ccode="+358" flg="cflags/fi.png">Finland</option>
+                        <option value="fr" ccode="+33" flg="cflags/fr.png">France</option>
+                        <option value="gf" ccode="+594" flg="cflags/gf.png">French Guiana</option>
+                        <option value="pf" ccode="+689" flg="cflags/pf.png">French Polynesia</option>
+
+                        <option value="ga" ccode="+241" flg="cflags/ga.png">Gabon</option>
+                        <option value="gm" ccode="+220" flg="cflags/gm.png">Gambia</option>
+                        <option value="ge" ccode="+995" flg="cflags/ge.png">Georgia</option>
+                        <option value="de" ccode="+49" flg="cflags/de.png">Germany</option>
+                        <option value="gh" ccode="+233" flg="cflags/gh.png">Ghana</option>
+                        <option value="gi" ccode="+350" flg="cflags/gi.png">Gibraltar</option>
+                        <option value="gr" ccode="+30" flg="cflags/gr.png">Greece</option>
+                        <option value="gl" ccode="+299" flg="cflags/gl.png">Greenland</option>
+                        <option value="gd" ccode="+1473" flg="cflags/gd.png">Grenada</option>
+                        <option value="gg" ccode="+44" flg="cflags/gg.png">Guernsey</option>
+                        <option value="gt" ccode="+502" flg="cflags/gt.png">Guatemala</option>
+                        <option value="gp" ccode="+590" flg="cflags/gp.png">Guadeloupe</option>
+                        <option value="gu" ccode="+1671" flg="cflags/gu.png">Guam</option>
+                        <option value="gn" ccode="+224" flg="cflags/gn.png">Guinea</option>
+                        <option value="gw" ccode="+245" flg="cflags/gw.png">Guinea-Bissau</option>
+                        <option value="gy" ccode="+592" flg="cflags/gy.png">Guyana</option>
+
+                        <option value="ht" ccode="+509" flg="cflags/ht.png">Haiti</option>
+                        <option value="hm" ccode="+" flg="cflags/hm.png">Heard Island And Mcdonald Islands</option>
+                        <option value="va" ccode="+39" flg="cflags/va.png">Holy See (Vatican City State)</option>
+                        <option value="hn" ccode="+504" flg="cflags/hn.png">Honduras</option>
+                        <option value="hk" ccode="+852" flg="cflags/hk.png">Hong Kong</option>
+                        <option value="hu" ccode="+36" flg="cflags/hu.png">Hungary</option>
+
+                        <option value="is" ccode="+354" flg="cflags/is.png">Iceland</option>
+                        <option value="in" ccode="+91" flg="cflags/in.png">India</option>
+                        <option value="id" ccode="+62" flg="cflags/id.png">Indonesia</option>
+                        <option value="ir" ccode="+98" flg="cflags/ir.png">Iran, Islamic Republic Of</option>
+                        <option value="iq" ccode="+964" flg="cflags/iq.png">Iraq</option>
+                        <option value="ie" ccode="+353" flg="cflags/ie.png">Ireland</option>
+                        <option value="im" ccode="+44" flg="cflags/im.png">Isle Of Man</option>
+                        <option value="il" ccode="+972" flg="cflags/il.png">Israel</option>
+                        <option value="it" ccode="+39" flg="cflags/it.png">Italy</option>
+
+                        <option value="jm" ccode="+1876" flg="cflags/jm.png">Jamaica</option>
+                        <option value="jp" ccode="+81" flg="cflags/jp.png">Japan</option>
+                        <option value="je" ccode="+44" flg="cflags/je.png">Jersey</option>
+                        <option value="jo" ccode="+962" flg="cflags/jo.png">Jordan</option>
+
+                        <option value="kz" ccode="+7" flg="cflags/kz.png">Kazakhstan</option>
+                        <option value="ke" ccode="+254" flg="cflags/ke.png">Kenya</option>
+                        <option value="ki" ccode="+686" flg="cflags/ki.png">Kiribati</option>
+                        <option value="kp" ccode="+850" flg="cflags/kp.png">
+                            Korea, Democratic People's Republic
+                            Of
+                        </option>
+                        <option value="kr" ccode="+82" flg="cflags/kr.png">Korea, Rebuplic Of</option>
+                        <option value="kw" ccode="+965" flg="cflags/kw.png">Kuwait</option>
+                        <option value="kg" ccode="+996" flg="cflags/kg.png">Kyrgyztan</option>
+
+                        <option value="la" ccode="+856" flg="cflags/la.png">Lao People's Democratic Republic</option>
+                        <option value="lv" ccode="+371" flg="cflags/lv.png">Latvia</option>
+                        <option value="lb" ccode="+961" flg="cflags/lb.png">Lebanon</option>
+                        <option value="ls" ccode="+266" flg="cflags/ls.png">Lesotho</option>
+                        <option value="lr" ccode="+231" flg="cflags/lr.png">Liberia</option>
+                        <option value="ly" ccode="+218" flg="cflags/ly.png">Libya</option>
+                        <option value="li" ccode="+423" flg="cflags/li.png">Liechtenstein</option>
+                        <option value="lt" ccode="+370" flg="cflags/lt.png">Lithuania</option>
+                        <option value="lu" ccode="+352" flg="cflags/lu.png">Luxembourg</option>
+
+                        <option value="mo" ccode="+853" flg="cflags/mo.png">Macao</option>
+                        <option value="mk" ccode="+389" flg="cflags/mk.png">
+                            Macedonia, The Former Yugoslav Republic
+                            Of
+                        </option>
+                        <option value="mg" ccode="+261" flg="cflags/mg.png">Madagascar</option>
+                        <option value="mw" ccode="+265" flg="cflags/mw.png">Malawi</option>
+                        <option value="my" ccode="+60" flg="cflags/my.png">Malaysia</option>
+                        <option value="mv" ccode="+960" flg="cflags/mv.png">Maldives</option>
+                        <option value="ml" ccode="+223" flg="cflags/ml.png">Mali</option>
+                        <option value="mt" ccode="+356" flg="cflags/mt.png">Malta</option>
+                        <option value="mq" ccode="+596" flg="cflags/mq.png">Marinique</option>
+                        <option value="mh" ccode="+692" flg="cflags/mh.png">Marshall Islands</option>
+                        <option value="mr" ccode="+222" flg="cflags/mr.png">Mauritania</option>
+                        <option value="mu" ccode="+230" flg="cflags/mu.png">Mauritius</option>
+                        <option value="yt" ccode="+262" flg="cflags/yt.png">Mayotte</option>
+                        <option value="mx" ccode="+52" flg="cflags/mx.png">Mesxico</option>
+                        <option value="fm" ccode="+691" flg="cflags/fm.png">Micronesta, Federated States Of</option>
+                        <option value="md" ccode="+373" flg="cflags/md.png">Moldova, Republic Of</option>
+                        <option value="mc" ccode="+377" flg="cflags/mc.png">Monaco</option>
+                        <option value="mn" ccode="+967" flg="cflags/mn.png">Mongolia</option>
+                        <option value="me" ccode="+382" flg="cflags/me.png">Montenegro</option>
+                        <option value="ms" ccode="+1664" flg="cflags/ms.png">Montserrat</option>
+                        <option value="ma" ccode="+212" flg="cflags/ma.png">Morocco</option>
+                        <option value="mz" ccode="+258" flg="cflags/mz.png">Mozambique</option>
+                        <option value="mm" ccode="+95" flg="cflags/mm.png">Myammar</option>
+                        <option value="na" ccode="+264" flg="cflags/na.png">Namibia</option>
+                        <option value="nr" ccode="+674" flg="cflags/nr.png">Nauru</option>
+                        <option value="np" ccode="+977" flg="cflags/np.png">Nepla</option>
+                        <option value="nl" ccode="+31" flg="cflags/nl.png">Netherlands</option>
+                        <option value="nz" ccode="+64" flg="cflags/nz.png">New Zealand</option>
+                        <option value="nc" ccode="+687" flg="cflags/nc.png">New Caledonia</option>
+                        <option value="ni" ccode="+505" flg="cflags/ni.png">Nicaragua</option>
+                        <option value="ne" ccode="+227" flg="cflags/ne.png">Niger</option>
+                        <option value="ng" ccode="+234" flg="cflags/ng.png">Nigeria</option>
+                        <option value="nu" ccode="+683" flg="cflags/nu.png">Niue</option>
+                        <option value="nf" ccode="+6723" flg="cflags/nf.png">Norfolk Island</option>
+                        <option value="mp" ccode="+1670" flg="cflags/mp.png">Northern Mariana Islands</option>
+                        <option value="no" ccode="+47" flg="cflags/no.png">Norway</option>
+                        <option value="om" ccode="+968" flg="cflags/om.png">Oman</option>
+                        <option value="pk" ccode="+92" flg="cflags/pk.png">Pakistan</option>
+                        <option value="pw" ccode="+680" flg="cflags/pw.png">Palau</option>
+                        <option value="ps" ccode="+970" flg="cflags/ps.png">Palestinian Territory, Occupied</option>
+                        <option value="pa" ccode="+507" flg="cflags/pa.png">Panama</option>
+                        <option value="pg" ccode="+675" flg="cflags/pg.png">Papua New Guinea</option>
+                        <option value="py" ccode="+595" flg="cflags/py.png">Paraguay</option>
+                        <option value="pe" ccode="+51" flg="cflags/pe.png">Peru</option>
+                        <option value="ph" ccode="+63" flg="cflags/ph.png">Philippines</option>
+                        <option value="pn" ccode="+870" flg="cflags/pn.png">Pitcairn</option>
+                        <option value="pl" ccode="+48" flg="cflags/pl.png">Poland</option>
+                        <option value="pt" ccode="+351" flg="cflags/pt.png">Portugual</option>
+                        <option value="pr" ccode="+1787-1939" flg="cflags/pr.png">Puerto Rico</option>
+                        <option value="qa" ccode="+974" flg="cflags/qa.png">Qatar</option>
+                        <option value="re" ccode="+262" flg="cflags/re.png">Reunion</option>
+                        <option value="ro" ccode="+40" flg="cflags/ro.png">Romania</option>
+                        <option value="ru" ccode="+7" flg="cflags/ru.png">Russian Federation</option>
+                        <option value="rw" ccode="+250" flg="cflags/rw.png">Rwanda</option>
+                        <option value="bl" ccode="+590" flg="cflags/bl.png">Saint Barthelemy</option>
+                        <option value="kn" ccode="+1869" flg="cflags/kn.png">Saint Kitts And Nevis</option>
+                        <option value="lc" ccode="+1758" flg="cflags/lc.png">Saint Lucia</option>
+                        <option value="sh" ccode="+290" flg="cflags/sh.png">
+                            Saint Helena, Ascension And Tristan
+                            Da Cunha
+                        </option>
+                        <option value="mf" ccode="+590" flg="cflags/mf.png">Saint Martin (French Part)</option>
+                        <option value="pm" ccode="+508" flg="cflags/pm.png">Saint Pierre And Miquelon</option>
+                        <option value="vc" ccode="+1784" flg="cflags/vc.png">Saint Vincent And The Grenadines</option>
+                        <option value="ws" ccode="+685" flg="cflags/ws.png">Samoa</option>
+                        <option value="sm" ccode="+378" flg="cflags/sm.png">San Marino</option>
+                        <option value="st" ccode="+239" flg="cflags/st.png">Sao Tome And Principe</option>
+                        <option value="sa" ccode="+966" flg="cflags/sa.png">Saudi Arabia</option>
+                        <option value="sn" ccode="+221" flg="cflags/sn.png">Senegal</option>
+                        <option value="rs" ccode="+381" flg="cflags/rs.png">Serbia</option>
+                        <option value="sc" ccode="+248" flg="cflags/sc.png">Seychelles</option>
+                        <option value="sl" ccode="+232" flg="cflags/sl.png">Sierra Leone</option>
+                        <option value="sg" ccode="+65" flg="cflags/sg.png">Singapore</option>
+                        <option value="sx" ccode="+590" flg="cflags/sx.png">Sint Maarten (Dutch Part)</option>
+                        <option value="sk" ccode="+421" flg="cflags/sk.png">Slovakia</option>
+                        <option value="si" ccode="+386" flg="cflags/si.png">Slovenia</option>
+                        <option value="sb" ccode="+677" flg="cflags/sb.png">Solomon Islands</option>
+                        <option value="so" ccode="+252" flg="cflags/so.png">Somalia</option>
+                        <option value="za" ccode="+27" flg="cflags/za.png">South Africa</option>
+                        <option value="ss" ccode="+211" flg="cflags/ss.png">South Sudan</option>
+                        <option value="es" ccode="+34" flg="cflags/es.png">Spain</option>
+                        <option value="lk" ccode="+94" flg="cflags/lk.png">Sri Lanka</option>
+                        <option value="gs" ccode="+" flg="cflags/gs.png">
+                            South Georgia And The South Sandwich
+                            Islands
+                        </option>
+                        <option value="sd" ccode="+249" flg="cflags/sd.png">Sudan</option>
+                        <option value="sr" ccode="+597" flg="cflags/sr.png">Suriname</option>
+                        <option value="sj" ccode="+47" flg="cflags/sj.png">Svalbard And Jan Mayen</option>
+                        <option value="sz" ccode="+41" flg="cflags/sz.png">Swaziland</option>
+                        <option value="se" ccode="+46" flg="cflags/se.png">Sweden</option>
+                        <option value="ch" ccode="+41" flg="cflags/ch.png">Switzerland</option>
+                        <option value="sy" ccode="+963" flg="cflags/sy.png">Syrian Arab Republic</option>
+                        <option value="tw" ccode="+886" flg="cflags/tw.png">Taiwan, Province Of China</option>
+                        <option value="tj" ccode="+992" flg="cflags/tj.png">Tajikistan</option>
+                        <option value="tz" ccode="+255" flg="cflags/tz.png">Tanzania, United Republic Of</option>
+                        <option value="th" ccode="+66" flg="cflags/th.png">Thailand</option>
+                        <option value="tl" ccode="+670" flg="cflags/tl.png">Timor-Leste</option>
+                        <option value="tg" ccode="+228" flg="cflags/tg.png">Togo</option>
+                        <option value="to" ccode="+676" flg="cflags/to.png">Tonga</option>
+                        <option value="tt" ccode="+1868" flg="cflags/tt.png">Trinidad And Tobago</option>
+                        <option value="tk" ccode="+690" flg="cflags/tk.png">Tokelau</option>
+                        <option value="tn" ccode="+216" flg="cflags/tn.png">Tunisia</option>
+                        <option value="tr" ccode="+90" flg="cflags/tr.png">Turkey</option>
+                        <option value="tm" ccode="+993" flg="cflags/tm.png">Turkmenistan</option>
+                        <option value="tv" ccode="+688" flg="cflags/tv.png">Tuvalu</option>
+                        <option value="tc" ccode="+1649" flg="cflags/tc.png">Turks And Caicos Islands</option>
+                        <option value="ug" ccode="+256" flg="cflags/ug.png">Uganda</option>
+                        <option value="ua" ccode="+380" flg="cflags/ua.png">Ukraine</option>
+                        <option value="ae" ccode="+971" flg="cflags/ae.png">United Arab Emirates</option>
+                        <option value="gb" ccode="+44" flg="cflags/gb.png">United Kingdom</option>
+                        <option value="us" ccode="+1" flg="cflags/us.png">United States</option>
+                        <option value="um" ccode="+699" flg="cflags/um.png">United States Minor Outlying Islands</option>
+                        <option value="uy" ccode="+598" flg="cflags/uy.png">Uruguay</option>
+                        <option value="uz" ccode="+998" flg="cflags/uz.png">Uzbekistan</option>
+                        <option value="vu" ccode="+678" flg="cflags/vu.png">Vanuatu</option>
+                        <option value="ve" ccode="+58" flg="cflags/ve.png">Venzuela, Bolivarian Republic Of</option>
+                        <option value="vn" ccode="+84" flg="cflags/vn.png">Viet Nam</option>
+                        <option value="vg" ccode="+1284" flg="cflags/vg.png">Virgin Islands, British</option>
+                        <option value="vi" ccode="+1340" flg="cflags/vi.png">Virgin Islands, U.S.</option>
+                        <option value="wf" ccode="+681" flg="cflags/wf.png">Wallis And Futuna</option>
+                        <option value="eh" ccode="+212" flg="cflags/eh.png">Western Sahara</option>
+                        <option value="ye" ccode="+967" flg="cflags/ye.png">Yemen</option>
+                        <option value="zm" ccode="+260" flg="cflags/zm.png">Zambia</option>
+                        <option value="zw" ccode="+263" flg="cflags/zw.png">Zimbabwe</option>
+                    </select>
+
+
+
+                </div>
+
+            </li>
+        </ul>
+        <!-- /.navbar-top-links -->
+        <div class="navbar-default sidebar" role="navigation" style="display:none;">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Locations</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+
+
+    <div class="wrapper" style="top:90px;padding-bottom:10px;">
+
+                    <div id="page-wrapper" style="background-color: #FFF ! important;width:99%;height:100%">
+
+                        <div id="dvdynamicserverads" style="width:100%;height:50px;padding-top:5px;margin-top:12px;margin-bottom:15px;"></div>
+
+                        <div class="row" id="near_by_locations" style="background-color: #FFF;margin-top:10px;margin-left:0px !important;margin-right:0px !important;display:none;">
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="28|30|47|50|72|73|85|95" id="l_p_1">
+                                <div class="panel panel-green">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-medkit fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Hospital - Pharmacy</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="1|6|8|35|51|77|78" id="l_p_2">
+                                <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-bank fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Banks - ATM</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="7|9|15|38|43|56|60|61|67|79" id="l_p_3">
+                                <div class="panel panel-yellow">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-cutlery fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Foods - Restaurants</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="14|17|18|19|20|36|41|65|70|81|89|91|92|93" id="l_p_4">
+                                <div class="panel panel-blue">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-taxi fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Train Station - Taxi</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="12|55|82|94" id="l_p_5">
+                                <div class="panel panel-dam_khanzir">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-mortar-board fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">University - School</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="3|4|16|69|71|96|98" id="l_p_6">
+                                <div class="panel panel-pustashe">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-linux fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Zoo</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="2|93" id="l_p_7">
+                                <div class="panel panel-grey">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plane fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Airport</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="5|13|21|44|63|64|66|68|86" id="l_p_8">
+                                <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-glass fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Entertainments</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="24|27|33|42|54|57|76|99" id="l_p_9">
+                                <div class="panel panel-green">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-legal fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Governmental</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="22|23|39|48|62|74|90" id="l_p_10">
+                                <div class="panel panel-yellow">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-male fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Worship places</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="11|25|26|29|32|37|40|46|49|52|83|84|87|88|100|101|102|103" id="l_p_11">
+                                <div class="panel panel-grey">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Shopping / Stores</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 places_area" tps="10|31|34|45|53|58|59|75|80" id="l_p_12">
+                                <div class="panel panel-dam_khanzir">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-heart fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Others</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" id="search_result" style="background-color: #FFF;margin:2px;padding:2px;display:none;">
+
+                            <div class="panel panel-success">
+                                <div class="panel-heading" style="height: 48px;">
+                                    <div id="result_effect"></div>
+                                    <div id="search_result_back"><i class="fa fa-home" style="font-size:17pt;"></i></div>
+
+                                </div>
+                                <div class="panel-body">
+                                    <div id="li_rearch_result" style="margin-bottom: 30px; padding-bottom: 30px;">
+                                    </div>
+                                </div>
+                                <div class="panel-footer" style="margin-bottom:60px;">
+                                    <div id="pnl_result_footer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row" id="places_result" style="background-color: #FFF;margin:2px;padding:2px;display:none;">
+                            <div class="panel panel-red" id="places_result_l_1">
+                                <div class="panel-heading" style="height: 48px;">
+                                    <div id="places_result_effect"></div>
+                                    <div id="places_result_back"><i class="fa fa-home" style="font-size:17pt;"></i></div>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="li_places_result" style="margin-bottom: 30px; padding-bottom: 30px;">
+                                    </div>
+                                </div>
+                                <div class="panel-footer" style="margin-bottom:60px;">
+                                    <div id="pnl_places_footer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" id="contacts_in_common" style="background-color: #FFF;margin:2px;padding:3px;display:none;">
+                            <div class="panel panel-red" id="contacts_in_common_l_1">
+                                <div class="panel-heading" style="height: 48px;">
+                                    <input type="hidden" id="txt_selected_common_contacts" />
+                                    <input type="hidden" id="txt_selected_common_contacts_phone" />
+                                    <div id="contacts_in_common_effect"></div>
+                                    <div id="contacts_in_common_back" style="float:left;"><i class="fa fa-home" style="font-size:17pt;"></i></div>
+
+                                    <div id="contacts_in_common_synch_contacts" style="padding:4px;float:right;border-radius:4px;background-color:#FFF;color:#222;"><i class="fa fa-arrows-alt" style="font-size:10pt;"></i> Synch Contacts </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="panel-body">
+                                <div id="li_contacts_in_common_result" style="margin-bottom: 30px; padding-bottom: 30px;">
+                                </div>
+                            </div>
+                            <div class="panel-footer" style="margin-bottom:60px;">
+                                <div id="contacts_in_common_footer"></div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
+    <div id="result-template" style="display: none">
+        <div class="panel panel-default" style="border-color: #0BD !important;" id="**uresid**">
+            <div class="panel-heading" style="background-color:#14a849; padding-right: 5px !important;height:48px;">
+                <a class="pull-right">
+                    <img src="**pic**"
+                         class="img-circle pull-right" style="margin-top: -6px !important; width: 56px;display:none;">
+                </a>
+                <h4 style="color:#FFF; margin-top: 2px !important; margin-bottom: 2px !important; font-size: 10pt !important;
+                        font-weight: bold !important;">
+                    **name**
+                </h4>
+                <em style="font-size: 7pt;">**lastseen**</em>
+            </div>
+            <div class="panel-body">
+                <a href="#" hrefo="**tel**" style="float:left;" onclick="setandsearch(this);">
+                    <img style="width: 24px;" src="cflags/**flg**.png" />
+                    <b>**telvi**</b>
+                </a>
+                <a href="tel:**tel1**" style="float:right;">
+                    <b><i class="fa fa-phone"></i> Call </b>
+                </a>
+                <div class="clearfix"></div>
+                <span style="font-size: 8pt !important;">**moreinfo**</span>
+            </div>
+            <div class="panel-footer">
+                <div>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+
+                            <!--<button class="btn btn-default btnreport" related_user_phone="**sharephonenumber_and_name**"
+                             related_user_id="**reportuid**" style="margin-left: 10px;" data-toggle="modal" data-target="#report_a_number_modal">
+                             <i class="fa fa-info-circle" style="font-size:10px;"> Report name</i>
+                             </button>-->
+
+                            <button class="btn btn-default btncontactsincommon" related_user_phone="**commonphonenumber**"
+                                    related_user_id="**contactsincommonuid**" style="margin-left: 10px;" data-toggle="modal">
+                                <i class="fa fa-random" style="font-size:10px;"> Contacts in common</i>
+                            </button>
+
+
+                            <input type="button" style="display:none;" class="btn btn-default btnplusone" plus_me_did="**pmedid**"
+                                   plus_val="**pval**" related_user_id="**plusoneuid**" value="+1">
+                            <input type="button" style="display:none;" class="btn btn-default btnminusone" minus_me_did="**mmedid**"
+                                   minus_val="**mval**" style="margin-left: 10px;" related_user_id="**minusoneuid**"
+                                   value="-1">
+                            <button class="btn btn-default btnshareacontact" style="display:none;" related_user_phone="**sharephonenumber_and_name**"
+                                    related_user_id="**shareuid**" style="margin-left: 10px;">
+                                <i class="glyphicon glyphicon-share"></i>
+                            </button>
+
+                            <button class="btn btn-default btnedit" related_user_name="**edit_name**" related_user_phone="**fullphonenumber**" related_user_phone_share="**sharephonenumber_and_name**"
+                                    related_user_id="**editinguid**" style="float:right;" data-toggle="modal" curlevel="**curlevel**">
+                                <i class="fa fa-pencil-square-o" style="font-size:10px;"> Edit Name </i>
+                            </button>
+                        </div>
+                        <!-- <input type="text" class="form-control" style="font-size:8pt !important;" placeholder="Add a comment..">-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="synch_my_contacts_confirmation_modal" tabindex="-1" style="z-index:999999999999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="synch_my_contacts_confirmation_wanted_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">PhoneBook Synch</h4>
+                </div>
+                <div class="modal-body">
+                    By clicking on "OK" you give us the permission to read
+                    and fetch your phone book contacts, uploaded contacts will be sent and saved on our servers
+                    so you can use the "Contacts in common" feature.
+                </div>
+                <div class="modal-footer">
+
+
+
+                    <button type="button" id="btn_synch_my_contacts_confirmation_yes" style="float:right;" class="btn btn-success">OK</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+
+
+
+    <div class="modal fade" id="phone_number__not_verified_modal" tabindex="-1" style="z-index:999999999999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="phone_number__not_verified_wanted_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Identity verification</h4>
+                </div>
+                <div class="modal-body">
+                    In order to use the "Contacts in common" feature or to "Edit" your listing you have to verify your phone number would you like to verify your phone number ?
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="float:left;">NO</button>
+
+                    <button type="button" id="btn_phone_number__not_verified_Goto_verification_center" style="float:right;" class="btn btn-success">YES</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="no_enough_balance_modal" tabindex="-1" style="z-index:999999999999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="no_enough_balance_modal_wanted_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Balance notification</h4>
+                </div>
+                <div class="modal-body">
+                    You don't have enough coins to complete this operation, Please choose either "Get for free" or "Get 500 Coins" from the Coins Center.
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="float:left;">Cancel</button>
+
+                    <button type="button" id="btn_no_enough_balance_modal_Goto_coins_center" style="float:right;" class="btn btn-success">Goto Coins Center</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="remove_ads_from_app_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;z-index:104000000 !important;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"><b>Remove ads</b></h4>
+                </div>
+                <div class="modal-body" style="padding:15px !important;">
+                    You can now enjoy the Majhul Number without ads for only<b> 500 coins per month</b>.
+                    <br />would you like to remove the ads ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                    <button type="button" id="btn_remove_ads_from_app_modal_submit_button" class="btn btn-success">Yes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+    <div class="modal fade" id="report_a_number_modal" tabindex="-1" style="z-index:999999999999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="report_a_number_modal_wanted_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Reporting a name</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to report this name and phone number ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                    <button type="button" id="btn_report_a_number_submit_button" class="btn btn-success">YES</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="edit_a_number_modal" tabindex="-1" role="dialog" style="z-index:999999999999" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="edit_a_number_modal_wanted_id">
+            <input type="hidden" id="edit_a_number_modal_wanted_phone">
+            <input type="hidden" id="edit_a_number_modal_cur_level">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Edit a name <small id="txt_current_name_tobe_changed"></small></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Enter new name below :</label>
+                        <input id="txt_edit_nick_name" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="btn_edit_a_number_submit_button" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+    <div class="modal fade" id="popup_get_free_coins" tabindex="-1" style="z-index:999999999999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <input type="hidden" id="popup_get_free_coins_modal_wanted_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Free Coins</h4>
+                </div>
+                <div class="modal-body">
+                    <table style="width: 100%">
+                        <tbody>
+
+                            <tr class="trccproductsno">
+                                <td style="padding-top:30px;">
+                                    <div id="btn_get_more_coins_free_vungle_vid" style="background-color:#FBFBFB;color:#333333;width:95%;height:42px;border:solid 2px #808080;text-align:center;padding-top:10px;">
+                                        <i class="fa fa-file-video-o">   Watch a complete video for 5 coins </i>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr class="trccproducts" style="display:none;">
+
+                                <td style="padding-top:30px;">
+                                    <div id="btn_share_conts" style="width:95%;height:45px;border:solid 2px #808080;text-align:center;padding-top:10px;">
+                                        <i class="fa fa-arrows-alt"> Share My Contacts </i>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="trccproducts">
+
+                                <td style="padding-top:30px;">
+                                    <div id="btn_get_more_coins_free_cancel" style="width:95%;height:42px;border:solid 2px #808080;text-align:center;padding-top:10px;" data-dismiss="modal">
+                                        <i class="fa fa-times" style="color:#ff0000;"> Cancel </i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+
+    <div id="Register" style="z-index: 99999999;
+            position: absolute;
+            top:0px;
+            height: 100%;
+            bottom: 0px;
+            width: 100%;
+            background: #F3F7F9;
+            display:none;">
+
+        <table style="width: 100%;" id="tbproducts" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr style="background-color: #FFFFFF;height:48px;border-bottom: 3px solid #D7D7D7;">
+                    <td id="btnclosemyprofile" style="width:10%;padding-left: 10px;">
+                        <span style="margin-left:auto;margin-right:auto;font-size:15px;color:#33AA5A;"> Cancel </span>
+                    </td>
+                    <td style="width:80%;">
+                        <div style="padding: 2px;color: #000000;font-size: 16pt;width: 100%;text-align: center;">
+                            <span style="margin-left:auto;margin-right:auto;"> My Profile </span>
+                        </div>
+                    </td>
+                    <td align="left" id="btnsaveprofile" style="width:10%;padding-right: 10px;">
+                        <span style="margin-left:auto;margin-right:auto;font-size:15px;color:#33AA5A;"> Submit </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <div style="background: #F3F7F9;height: 600px !important;top: 60px !important;z-index:9999999999 !important;">
+
+
+            <div class="panel-body">
+                <form role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label">Full name</label>
+                            <input id="fullname" class="form-control" name="fullname" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <select id="defaultCountry" class="form-control" style="height: 38px; font-size: 9pt; ">
+                                <option value="" selected>Your country</option>
+                                <option value="af" ccode="+93" flg="cflags/af.png">Afghanistan</option>
+                                <option value="al" ccode="+355" flg="cflags/al.png">Albania</option>
+                                <option value="dz" ccode="+213" flg="cflags/dz.png">Algeria</option>
+                                <option value="as" ccode="+1684" flg="cflags/as.png">American Samoa</option>
+                                <option value="ad" ccode="+376" flg="cflags/ad.png">Andorra</option>
+                                <option value="ao" ccode="+244" flg="cflags/ao.png">Angola</option>
+                                <option value="ai" ccode="+1264" flg="cflags/ai.png">Anguilla</option>
+                                <option value="ag" ccode="+1268" flg="cflags/ag.png">Antigua And Barbuda</option>
+                                <option value="aq" ccode="+6721" flg="cflags/aq.png">Antarctica</option>
+                                <option value="ar" ccode="+54" flg="cflags/ar.png">Argentina</option>
+                                <option value="am" ccode="+374" flg="cflags/am.png">Armenta</option>
+                                <option value="aw" ccode="+297" flg="cflags/aw.png">Aruba</option>
+                                <option value="au" ccode="+61" flg="cflags/au.png">Australia</option>
+                                <option value="at" ccode="+43" flg="cflags/at.png">Austria</option>
+                                <option value="az" ccode="+994" flg="cflags/az.png">Azerbaijan</option>
+
+                                <option value="bs" ccode="+1242" flg="cflags/bs.png">Bahamas</option>
+                                <option value="bh" ccode="+973" flg="cflags/bh.png">Bahrain</option>
+                                <option value="bd" ccode="+880" flg="cflags/bd.png">Bangladesh</option>
+                                <option value="bb" ccode="+1246" flg="cflags/bb.png">Barbados</option>
+                                <option value="by" ccode="+375" flg="cflags/by.png">Belarus</option>
+                                <option value="be" ccode="+32" flg="cflags/be.png">Belgium</option>
+                                <option value="bz" ccode="+501" flg="cflags/bz.png">Belize</option>
+                                <option value="bj" ccode="+229" flg="cflags/bj.png">Benin</option>
+                                <option value="bm" ccode="+1441" flg="cflags/bm.png">Bermuda</option>
+                                <option value="bt" ccode="+975" flg="cflags/bt.png">Bhitan</option>
+                                <option value="bo" ccode="+591" flg="cflags/bo.png">Bolivia, Plurinational State Of</option>
+                                <option value="bq" ccode="+599" flg="cflags/bq.png">Bonaire, Sint Eustatius And Saba</option>
+                                <option value="ba" ccode="+387" flg="cflags/ba.png">Bosnia And Herzegovina</option>
+                                <option value="bw" ccode="+267" flg="cflags/bw.png">Botswana</option>
+                                <option value="bv" ccode="+47" flg="cflags/bv.png">Boubvet Island</option>
+                                <option value="br" ccode="+55" flg="cflags/br.png">Brazil</option>
+                                <option value="io" ccode="+246" flg="cflags/io.png">British Indian Oceam Territory</option>
+                                <option value="bn" ccode="+673" flg="cflags/bn.png">Brunei Darussalam</option>
+                                <option value="bg" ccode="+359" flg="cflags/bg.png">Bulgaria</option>
+                                <option value="bf" ccode="+226" flg="cflags/bf.png">Burkina Faso</option>
+                                <option value="bi" ccode="+257" flg="cflags/bi.png">Burundi</option>
+
+                                <option value="kh" ccode="+57" flg="cflags/kh.png">Cambodia</option>
+                                <option value="cm" ccode="+237" flg="cflags/cm.png">Cameroon</option>
+                                <option value="ca" ccode="+1" flg="cflags/ca.png">Canada</option>
+                                <option value="cv" ccode="+238" flg="cflags/cv.png">Cape Verde</option>
+                                <option value="ky" ccode="+1345" flg="cflags/ky.png">Cayman Islands</option>
+                                <option value="cf" ccode="+236" flg="cflags/cf.png">Central African Republic</option>
+                                <option value="td" ccode="+235" flg="cflags/td.png">Chad</option>
+                                <option value="cl" ccode="+56" flg="cflags/cl.png">Chile</option>
+                                <option value="cn" ccode="+86" flg="cflags/cn.png">China</option>
+                                <option value="cx" ccode="+61" flg="cflags/cx.png">Christmas Island</option>
+                                <option value="cc" ccode="+61" flg="cflags/cc.png">Cocos (Keeling) Islands</option>
+                                <option value="co" ccode="+855" flg="cflags/co.png">Colombia</option>
+                                <option value="cg" ccode="+243" flg="cflags/cg.png">Congo</option>
+                                <option value="cd" ccode="+242" flg="cflags/cd.png">
+                                    Congo, The Democtratic Republic
+                                    Of The
+                                </option>
+                                <option value="ck" ccode="+682" flg="cflags/ck.png">Cook Islands</option>
+                                <option value="km" ccode="+269" flg="cflags/km.png">Comoros</option>
+                                <option value="cr" ccode="+506" flg="cflags/cr.png">Costa Rica</option>
+                                <option value="ci" ccode="+225" flg="cflags/ci.png">Cote D'livoire</option>
+                                <option value="hr" ccode="+385" flg="cflags/hr.png">Croatia</option>
+                                <option value="cu" ccode="+53" flg="cflags/cu.png">Cuba</option>
+                                <option value="cw" ccode="+599" flg="cflags/cw.png">Curacao</option>
+                                <option value="cy" ccode="+357" flg="cflags/cy.png">Cyprus</option>
+                                <option value="cz" ccode="+420" flg="cflags/cz.png">Czech Republic</option>
+
+                                <option value="dk" ccode="+45" flg="cflags/dk.png">Denmark</option>
+                                <option value="dj" ccode="+253" flg="cflags/dj.png">Djibouti</option>
+                                <option value="dm" ccode="+1767" flg="cflags/dm.png">Dominica</option>
+                                <option value="do" ccode="+1809-1829-1849" flg="cflags/do.png">Dominican Republic</option>
+
+                                <option value="ec" ccode="+593" flg="cflags/ec.png">Ecuador</option>
+                                <option value="eg" ccode="+20" flg="cflags/eg.png">Egypt</option>
+                                <option value="gq" ccode="+240" flg="cflags/gq.png">Equatorial Guinea</option>
+                                <option value="er" ccode="+291" flg="cflags/er.png">Eritrea</option>
+                                <option value="ee" ccode="+372" flg="cflags/ee.png">Estonia</option>
+                                <option value="et" ccode="+251" flg="cflags/et.png">Ethiopia</option>
+
+                                <option value="fk" ccode="+500" flg="cflags/fk.png">Falkland Islands (Malvinas)</option>
+                                <option value="fo" ccode="+298" flg="cflags/fo.png">Faroe Islands</option>
+                                <option value="fj" ccode="+679" flg="cflags/fj.png">Fiji</option>
+                                <option value="fi" ccode="+358" flg="cflags/fi.png">Finland</option>
+                                <option value="fr" ccode="+33" flg="cflags/fr.png">France</option>
+                                <option value="gf" ccode="+594" flg="cflags/gf.png">French Guiana</option>
+                                <option value="pf" ccode="+689" flg="cflags/pf.png">French Polynesia</option>
+
+                                <option value="ga" ccode="+241" flg="cflags/ga.png">Gabon</option>
+                                <option value="gm" ccode="+220" flg="cflags/gm.png">Gambia</option>
+                                <option value="ge" ccode="+995" flg="cflags/ge.png">Georgia</option>
+                                <option value="de" ccode="+49" flg="cflags/de.png">Germany</option>
+                                <option value="gh" ccode="+233" flg="cflags/gh.png">Ghana</option>
+                                <option value="gi" ccode="+350" flg="cflags/gi.png">Gibraltar</option>
+                                <option value="gr" ccode="+30" flg="cflags/gr.png">Greece</option>
+                                <option value="gl" ccode="+299" flg="cflags/gl.png">Greenland</option>
+                                <option value="gd" ccode="+1473" flg="cflags/gd.png">Grenada</option>
+                                <option value="gg" ccode="+44" flg="cflags/gg.png">Guernsey</option>
+                                <option value="gt" ccode="+502" flg="cflags/gt.png">Guatemala</option>
+                                <option value="gp" ccode="+590" flg="cflags/gp.png">Guadeloupe</option>
+                                <option value="gu" ccode="+1671" flg="cflags/gu.png">Guam</option>
+                                <option value="gn" ccode="+224" flg="cflags/gn.png">Guinea</option>
+                                <option value="gw" ccode="+245" flg="cflags/gw.png">Guinea-Bissau</option>
+                                <option value="gy" ccode="+592" flg="cflags/gy.png">Guyana</option>
+
+                                <option value="ht" ccode="+509" flg="cflags/ht.png">Haiti</option>
+                                <option value="hm" ccode="+" flg="cflags/hm.png">Heard Island And Mcdonald Islands</option>
+                                <option value="va" ccode="+39" flg="cflags/va.png">Holy See (Vatican City State)</option>
+                                <option value="hn" ccode="+504" flg="cflags/hn.png">Honduras</option>
+                                <option value="hk" ccode="+852" flg="cflags/hk.png">Hong Kong</option>
+                                <option value="hu" ccode="+36" flg="cflags/hu.png">Hungary</option>
+
+                                <option value="is" ccode="+354" flg="cflags/is.png">Iceland</option>
+                                <option value="in" ccode="+91" flg="cflags/in.png">India</option>
+                                <option value="id" ccode="+62" flg="cflags/id.png">Indonesia</option>
+                                <option value="ir" ccode="+98" flg="cflags/ir.png">Iran, Islamic Republic Of</option>
+                                <option value="iq" ccode="+964" flg="cflags/iq.png">Iraq</option>
+                                <option value="ie" ccode="+353" flg="cflags/ie.png">Ireland</option>
+                                <option value="im" ccode="+44" flg="cflags/im.png">Isle Of Man</option>
+                                <option value="il" ccode="+972" flg="cflags/il.png">Israel</option>
+                                <option value="it" ccode="+39" flg="cflags/it.png">Italy</option>
+
+                                <option value="jm" ccode="+1876" flg="cflags/jm.png">Jamaica</option>
+                                <option value="jp" ccode="+81" flg="cflags/jp.png">Japan</option>
+                                <option value="je" ccode="+44" flg="cflags/je.png">Jersey</option>
+                                <option value="jo" ccode="+962" flg="cflags/jo.png">Jordan</option>
+
+                                <option value="kz" ccode="+7" flg="cflags/kz.png">Kazakhstan</option>
+                                <option value="ke" ccode="+254" flg="cflags/ke.png">Kenya</option>
+                                <option value="ki" ccode="+686" flg="cflags/ki.png">Kiribati</option>
+                                <option value="kp" ccode="+850" flg="cflags/kp.png">
+                                    Korea, Democratic People's Republic
+                                    Of
+                                </option>
+                                <option value="kr" ccode="+82" flg="cflags/kr.png">Korea, Rebuplic Of</option>
+                                <option value="kw" ccode="+965" flg="cflags/kw.png">Kuwait</option>
+                                <option value="kg" ccode="+996" flg="cflags/kg.png">Kyrgyztan</option>
+
+                                <option value="la" ccode="+856" flg="cflags/la.png">Lao People's Democratic Republic</option>
+                                <option value="lv" ccode="+371" flg="cflags/lv.png">Latvia</option>
+                                <option value="lb" ccode="+961" flg="cflags/lb.png">Lebanon</option>
+                                <option value="ls" ccode="+266" flg="cflags/ls.png">Lesotho</option>
+                                <option value="lr" ccode="+231" flg="cflags/lr.png">Liberia</option>
+                                <option value="ly" ccode="+218" flg="cflags/ly.png">Libya</option>
+                                <option value="li" ccode="+423" flg="cflags/li.png">Liechtenstein</option>
+                                <option value="lt" ccode="+370" flg="cflags/lt.png">Lithuania</option>
+                                <option value="lu" ccode="+352" flg="cflags/lu.png">Luxembourg</option>
+
+                                <option value="mo" ccode="+853" flg="cflags/mo.png">Macao</option>
+                                <option value="mk" ccode="+389" flg="cflags/mk.png">
+                                    Macedonia, The Former Yugoslav Republic
+                                    Of
+                                </option>
+                                <option value="mg" ccode="+261" flg="cflags/mg.png">Madagascar</option>
+                                <option value="mw" ccode="+265" flg="cflags/mw.png">Malawi</option>
+                                <option value="my" ccode="+60" flg="cflags/my.png">Malaysia</option>
+                                <option value="mv" ccode="+960" flg="cflags/mv.png">Maldives</option>
+                                <option value="ml" ccode="+223" flg="cflags/ml.png">Mali</option>
+                                <option value="mt" ccode="+356" flg="cflags/mt.png">Malta</option>
+                                <option value="mq" ccode="+596" flg="cflags/mq.png">Marinique</option>
+                                <option value="mh" ccode="+692" flg="cflags/mh.png">Marshall Islands</option>
+                                <option value="mr" ccode="+222" flg="cflags/mr.png">Mauritania</option>
+                                <option value="mu" ccode="+230" flg="cflags/mu.png">Mauritius</option>
+                                <option value="yt" ccode="+262" flg="cflags/yt.png">Mayotte</option>
+                                <option value="mx" ccode="+52" flg="cflags/mx.png">Mesxico</option>
+                                <option value="fm" ccode="+691" flg="cflags/fm.png">Micronesta, Federated States Of</option>
+                                <option value="md" ccode="+373" flg="cflags/md.png">Moldova, Republic Of</option>
+                                <option value="mc" ccode="+377" flg="cflags/mc.png">Monaco</option>
+                                <option value="mn" ccode="+967" flg="cflags/mn.png">Mongolia</option>
+                                <option value="me" ccode="+382" flg="cflags/me.png">Montenegro</option>
+                                <option value="ms" ccode="+1664" flg="cflags/ms.png">Montserrat</option>
+                                <option value="ma" ccode="+212" flg="cflags/ma.png">Morocco</option>
+                                <option value="mz" ccode="+258" flg="cflags/mz.png">Mozambique</option>
+                                <option value="mm" ccode="+95" flg="cflags/mm.png">Myammar</option>
+                                <option value="na" ccode="+264" flg="cflags/na.png">Namibia</option>
+                                <option value="nr" ccode="+674" flg="cflags/nr.png">Nauru</option>
+                                <option value="np" ccode="+977" flg="cflags/np.png">Nepla</option>
+                                <option value="nl" ccode="+31" flg="cflags/nl.png">Netherlands</option>
+                                <option value="nz" ccode="+64" flg="cflags/nz.png">New Zealand</option>
+                                <option value="nc" ccode="+687" flg="cflags/nc.png">New Caledonia</option>
+                                <option value="ni" ccode="+505" flg="cflags/ni.png">Nicaragua</option>
+                                <option value="ne" ccode="+227" flg="cflags/ne.png">Niger</option>
+                                <option value="ng" ccode="+234" flg="cflags/ng.png">Nigeria</option>
+                                <option value="nu" ccode="+683" flg="cflags/nu.png">Niue</option>
+                                <option value="nf" ccode="+6723" flg="cflags/nf.png">Norfolk Island</option>
+                                <option value="mp" ccode="+1670" flg="cflags/mp.png">Northern Mariana Islands</option>
+                                <option value="no" ccode="+47" flg="cflags/no.png">Norway</option>
+                                <option value="om" ccode="+968" flg="cflags/om.png">Oman</option>
+                                <option value="pk" ccode="+92" flg="cflags/pk.png">Pakistan</option>
+                                <option value="pw" ccode="+680" flg="cflags/pw.png">Palau</option>
+                                <option value="ps" ccode="+970" flg="cflags/ps.png">Palestinian Territory, Occupied</option>
+                                <option value="pa" ccode="+507" flg="cflags/pa.png">Panama</option>
+                                <option value="pg" ccode="+675" flg="cflags/pg.png">Papua New Guinea</option>
+                                <option value="py" ccode="+595" flg="cflags/py.png">Paraguay</option>
+                                <option value="pe" ccode="+51" flg="cflags/pe.png">Peru</option>
+                                <option value="ph" ccode="+63" flg="cflags/ph.png">Philippines</option>
+                                <option value="pn" ccode="+870" flg="cflags/pn.png">Pitcairn</option>
+                                <option value="pl" ccode="+48" flg="cflags/pl.png">Poland</option>
+                                <option value="pt" ccode="+351" flg="cflags/pt.png">Portugual</option>
+                                <option value="pr" ccode="+1787-1939" flg="cflags/pr.png">Puerto Rico</option>
+                                <option value="qa" ccode="+974" flg="cflags/qa.png">Qatar</option>
+                                <option value="re" ccode="+262" flg="cflags/re.png">Reunion</option>
+                                <option value="ro" ccode="+40" flg="cflags/ro.png">Romania</option>
+                                <option value="ru" ccode="+7" flg="cflags/ru.png">Russian Federation</option>
+                                <option value="rw" ccode="+250" flg="cflags/rw.png">Rwanda</option>
+                                <option value="bl" ccode="+590" flg="cflags/bl.png">Saint Barthelemy</option>
+                                <option value="kn" ccode="+1869" flg="cflags/kn.png">Saint Kitts And Nevis</option>
+                                <option value="lc" ccode="+1758" flg="cflags/lc.png">Saint Lucia</option>
+                                <option value="sh" ccode="+290" flg="cflags/sh.png">
+                                    Saint Helena, Ascension And Tristan
+                                    Da Cunha
+                                </option>
+                                <option value="mf" ccode="+590" flg="cflags/mf.png">Saint Martin (French Part)</option>
+                                <option value="pm" ccode="+508" flg="cflags/pm.png">Saint Pierre And Miquelon</option>
+                                <option value="vc" ccode="+1784" flg="cflags/vc.png">Saint Vincent And The Grenadines</option>
+                                <option value="ws" ccode="+685" flg="cflags/ws.png">Samoa</option>
+                                <option value="sm" ccode="+378" flg="cflags/sm.png">San Marino</option>
+                                <option value="st" ccode="+239" flg="cflags/st.png">Sao Tome And Principe</option>
+                                <option value="sa" ccode="+966" flg="cflags/sa.png">Saudi Arabia</option>
+                                <option value="sn" ccode="+221" flg="cflags/sn.png">Senegal</option>
+                                <option value="rs" ccode="+381" flg="cflags/rs.png">Serbia</option>
+                                <option value="sc" ccode="+248" flg="cflags/sc.png">Seychelles</option>
+                                <option value="sl" ccode="+232" flg="cflags/sl.png">Sierra Leone</option>
+                                <option value="sg" ccode="+65" flg="cflags/sg.png">Singapore</option>
+                                <option value="sx" ccode="+590" flg="cflags/sx.png">Sint Maarten (Dutch Part)</option>
+                                <option value="sk" ccode="+421" flg="cflags/sk.png">Slovakia</option>
+                                <option value="si" ccode="+386" flg="cflags/si.png">Slovenia</option>
+                                <option value="sb" ccode="+677" flg="cflags/sb.png">Solomon Islands</option>
+                                <option value="so" ccode="+252" flg="cflags/so.png">Somalia</option>
+                                <option value="za" ccode="+27" flg="cflags/za.png">South Africa</option>
+                                <option value="ss" ccode="+211" flg="cflags/ss.png">South Sudan</option>
+                                <option value="es" ccode="+34" flg="cflags/es.png">Spain</option>
+                                <option value="lk" ccode="+94" flg="cflags/lk.png">Sri Lanka</option>
+                                <option value="gs" ccode="+" flg="cflags/gs.png">
+                                    South Georgia And The South Sandwich
+                                    Islands
+                                </option>
+                                <option value="sd" ccode="+249" flg="cflags/sd.png">Sudan</option>
+                                <option value="sr" ccode="+597" flg="cflags/sr.png">Suriname</option>
+                                <option value="sj" ccode="+47" flg="cflags/sj.png">Svalbard And Jan Mayen</option>
+                                <option value="sz" ccode="+41" flg="cflags/sz.png">Swaziland</option>
+                                <option value="se" ccode="+46" flg="cflags/se.png">Sweden</option>
+                                <option value="ch" ccode="+41" flg="cflags/ch.png">Switzerland</option>
+                                <option value="sy" ccode="+963" flg="cflags/sy.png">Syrian Arab Republic</option>
+                                <option value="tw" ccode="+886" flg="cflags/tw.png">Taiwan, Province Of China</option>
+                                <option value="tj" ccode="+992" flg="cflags/tj.png">Tajikistan</option>
+                                <option value="tz" ccode="+255" flg="cflags/tz.png">Tanzania, United Republic Of</option>
+                                <option value="th" ccode="+66" flg="cflags/th.png">Thailand</option>
+                                <option value="tl" ccode="+670" flg="cflags/tl.png">Timor-Leste</option>
+                                <option value="tg" ccode="+228" flg="cflags/tg.png">Togo</option>
+                                <option value="to" ccode="+676" flg="cflags/to.png">Tonga</option>
+                                <option value="tt" ccode="+1868" flg="cflags/tt.png">Trinidad And Tobago</option>
+                                <option value="tk" ccode="+690" flg="cflags/tk.png">Tokelau</option>
+                                <option value="tn" ccode="+216" flg="cflags/tn.png">Tunisia</option>
+                                <option value="tr" ccode="+90" flg="cflags/tr.png">Turkey</option>
+                                <option value="tm" ccode="+993" flg="cflags/tm.png">Turkmenistan</option>
+                                <option value="tv" ccode="+688" flg="cflags/tv.png">Tuvalu</option>
+                                <option value="tc" ccode="+1649" flg="cflags/tc.png">Turks And Caicos Islands</option>
+                                <option value="ug" ccode="+256" flg="cflags/ug.png">Uganda</option>
+                                <option value="ua" ccode="+380" flg="cflags/ua.png">Ukraine</option>
+                                <option value="ae" ccode="+971" flg="cflags/ae.png">United Arab Emirates</option>
+                                <option value="gb" ccode="+44" flg="cflags/gb.png">United Kingdom</option>
+                                <option value="us" ccode="+1" flg="cflags/us.png">United States</option>
+                                <option value="um" ccode="+699" flg="cflags/um.png">United States Minor Outlying Islands</option>
+                                <option value="uy" ccode="+598" flg="cflags/uy.png">Uruguay</option>
+                                <option value="uz" ccode="+998" flg="cflags/uz.png">Uzbekistan</option>
+                                <option value="vu" ccode="+678" flg="cflags/vu.png">Vanuatu</option>
+                                <option value="ve" ccode="+58" flg="cflags/ve.png">Venzuela, Bolivarian Republic Of</option>
+                                <option value="vn" ccode="+84" flg="cflags/vn.png">Viet Nam</option>
+                                <option value="vg" ccode="+1284" flg="cflags/vg.png">Virgin Islands, British</option>
+                                <option value="vi" ccode="+1340" flg="cflags/vi.png">Virgin Islands, U.S.</option>
+                                <option value="wf" ccode="+681" flg="cflags/wf.png">Wallis And Futuna</option>
+                                <option value="eh" ccode="+212" flg="cflags/eh.png">Western Sahara</option>
+                                <option value="ye" ccode="+967" flg="cflags/ye.png">Yemen</option>
+                                <option value="zm" ccode="+260" flg="cflags/zm.png">Zambia</option>
+                                <option value="zw" ccode="+263" flg="cflags/zw.png">Zimbabwe</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Phone Number</label>
+                            <input id="phonenbr" class="form-control" name="Phone" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input id="email" class="form-control" name="email" type="email">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Address</label>
+                            <input id="address" class="form-control" name="address" type="text">
+                        </div>
+
+                        <!-- Change this to a button or input when using this as a form -->
+                        <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Save</a> -->
+                        <!--onclick="saveprofile()"-->
+
+                        <b>Profile Creation Notice</b><br /><br />
+                        <ul style="zoom:0.5;">
+                            <li>
+                                Please make sure that all your information is correct, valid, and is personal
+
+                                directly to you.
+                            </li>
+                            <li>
+                                All the above data written by you will be sent and saved on our servers, and
+
+                                made available for search to other Majhul Number Users.
+                            </li>
+
+                            <li>
+                                Inappropriate / spam / infringement / sexual content is strictly forbidden. In case
+
+                                of any violation, your ability to use the Majhul Number application will be
+
+                                terminated.
+                            </li>
+
+                            <li>
+                                All the provided above personal information is at your own risk, and we are not
+
+                                responsible for any kind of damage.
+                            </li>
+                        </ul>
+                        <br />
+                        <div> <label id="required" style="display:none;color:red"></label></div>
+
+
+                    </fieldset>
+                </form>
+
+
+
+                <button class="btn btn-danger btn-lg" id="btn_activate_deactivate" data-toggle="modal" data-target="#activate_deactivate_modal" style="display:none;">
+                    <i class="fa fa-gears" id="btn_activate_deactivate_inner_text" style="padding-left:2px; float:left;font-size:11px;"></i>
+                </button>
+
+                <div class="modal fade" id="activate_deactivate_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <input type="hidden" id="txt_next_account_status" />
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="activate_deactivate_myModalLabel">Account Managment</h4>
+                            </div>
+                            <div class="modal-body" id="activate_deactivate_myModalbody">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                                <button type="button" id="btn_activate_deactivate_submit_button" class="btn btn-success">Yes</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+
+                <button class="btn btn-info btn-lg" id="btn_add_nick_name" data-toggle="modal" data-target="#add_nick_name_modal" style="display:none;float:right;">
+                    <i class="fa fa-plus" id="btn_add_nick_name_inner_text" style="padding-left:2px; float:left;font-size:11px;"> Nick Name</i>
+                </button>
+
+                <div class="modal fade" id="add_nick_name_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="activate_deactivate_myModalLabel">Add Nick Name</h4>
+                            </div>
+                            <div class="modal-body" id="add_nick_name_myModalbody">
+                                <div class="form-group">
+                                    <label class="control-label">Nick Name</label>
+                                    <input id="txt_new_nick_name" class="form-control" type="text">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" id="btnadd_nick_name_button" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div id="dv_dynamic_server_garb"></div>
+    <div id="dv_dynamic_server_startup" style="display:none;"></div>
+
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <!--<script src="bower_components/raphael/raphael-min.js"></script>-->
+    <!--<script src="bower_components/morrisjs/morris.min.js"></script>-->
+    <script src="metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+    <script type='text/javascript' src="js/simpleajax.min.js"></script>
+    <script type='text/javascript' src="js/main.js"></script>
+    <script type='text/javascript' src="js/toastr.js"></script>
+    <script type='text/javascript' src="js/libphonenumber.js"></script>
+
+
+    <script type="text/javascript" src="js/index.js"></script>
+
+
+
+
+</body>
+</html>
