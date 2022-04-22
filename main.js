@@ -1,5 +1,5 @@
-var dealinguri = "http://numberbouk.net/h1";
-var suggestions_dealinguri = "http://loligram.org/h1_sugg";
+var dealinguri = "http://numberbouk.net/h3";
+var suggestions_dealinguri = "http://numberbouk.net/h1_sugg";
 
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
@@ -246,9 +246,9 @@ $(document).ready(function () {
             },
             success: function (data) {
 
-                add_adcolony_v4vc_coins();
+                getpointscenter_quick();
                 $('#edit_a_number_modal').modal('hide');
-                toastr.success("شكرا لك ، تم تغيير الاسم بنجاح يرجى تحديث نتيجة البحث.");
+                toastr.success("Thank you, the name has been successfully changed please refresh the search result.");
 
             },
             error: function (error) {
@@ -325,7 +325,7 @@ $(document).ready(function () {
 
         var cur_balance = eval($('#spnofrealbal').html());
 
-        if (cur_balance <= 500) {
+        if (cur_balance < 500) {
             $('#no_enough_balance_modal').modal('show');
 
         }
@@ -341,7 +341,7 @@ $(document).ready(function () {
 
         var cur_balance = eval($('#spnofrealbal').html());
 
-        if (cur_balance <= 500) {
+        if (cur_balance < 500) {
             $('#no_enough_balance_modal').modal('show');
 
         }
@@ -636,15 +636,10 @@ $(document).ready(function () {
 
         $('#Register').hide('slidedown');
 
-
-
-
         event.stopPropagation();
         event.preventDefault();
 
     });
-
-
 
     $('#btn_get_more_coins_in_app_1').bind('touchend', function () {
 
@@ -652,6 +647,11 @@ $(document).ready(function () {
 
     });
 
+    $('#btn_get_more_coins_in_app_50000').bind('touchend', function () {
+
+        AndroidFunction.triggertheinapp50000coins("");
+
+    });
 
 
     $('#btn_get_vip_subscription_in_app_2').bind('touchend', function () {
@@ -1074,7 +1074,7 @@ function get_places_details(tps, myid) {
 
 
 function onsynkConfirm(button) {
-    if (button == "-500") {
+    if (button == "1") {
         getdvinf();
     }
     else {
@@ -1217,8 +1217,7 @@ function searfor() {
             fcntry: option_c_code,
             lang: $('#txt_local_language').val(),
             lat: $('#txt_lat').val(),
-            lng: $("#txt_lng").val(),
-            top: '100'
+            lng: $("#txt_lng").val()
 
 
         },
@@ -1505,7 +1504,7 @@ function searfor() {
                         $('#txt_current_name_tobe_changed').html($(this).attr('related_user_name'));
 
                         var cur_balance = eval($('#spnofrealbal').html());
-                        if (cur_balance <= 100000) {
+                        if (cur_balance >= 500) {
 
                             if ($('#phonenbr').val() == "") {
 
@@ -1613,8 +1612,7 @@ function loadmoreResult() {
             fcntry: option_c_code,
             lang: $('#txt_local_language').val(),
             lat: $('#txt_lat').val(),
-            lng: $("#txt_lng").val(),
-            top:'100'
+            lng: $("#txt_lng").val()
         },
         success: function (data) {
             $('#dvloadmorewait').html('');
@@ -1894,7 +1892,7 @@ function loadmoreResult() {
 
                     var cur_balance = eval($('#spnofrealbal').html());
 
-                    if (cur_balance <= 100000) {
+                    if (cur_balance >= 500) {
 
                         if ($('#phonenbr').val() == "") {
 
@@ -2034,7 +2032,7 @@ function get_my_listing_records() {
             lang: $('#txt_local_language').val(),
             lat: $('#txt_lat').val(),
             lng: $("#txt_lng").val(),
-            top:'100'
+            top:'20'
         },
         success: function (data) {
             if (data != "") {
@@ -2043,7 +2041,7 @@ function get_my_listing_records() {
 
                 if (data.t.length == 0) {
                     $('#result_effect_img').addClass('fa-frown-o');
-                    $('#result_effect').html("<div >العثور على شيء ...</div>");
+                    $('#result_effect').html("<div >Nothing Found ...</div>");
                     $('#li_rearch_result').html('');
                     ask_yamli();
                 }
@@ -2112,7 +2110,7 @@ function get_my_listing_records() {
                         markup += "<li class='li_result_item' custid='" + item.ID + "'>" + tempresult + "</li>";
 
                     });
-                    markup += '<li class="load-more"  style="height:80px;"  data-icon="refresh"><table align="center"><tr><td><img src="img/interact.png" style="width:48px;" /></td><td><span style="color:#669900;"> Load More ....</span></td><td><div id="dvloadmorewait"></div></td></tr></table></li>';
+                    markup += '<li class="load-more"  style="height:80px;"  data-icon="refresh"><table align="center"><tr><td><img src="img/interact.png" style="width:48px;" /></td><td><span style="color:#669900;"> Load More ...</span></td><td><div id="dvloadmorewait"></div></td></tr></table></li>';
 
                     markup += "</ul>";
                     $('#li_rearch_result').html(markup);
@@ -2284,7 +2282,7 @@ function get_my_listing_records() {
                         $('#txt_current_name_tobe_changed').html($(this).attr('related_user_name'));
 
                         var cur_balance = eval($('#spnofrealbal').html());
-                        if (cur_balance <= 100000) {
+                        if (cur_balance >= 500) {
 
                             if ($('#phonenbr').val() == "") {
 
