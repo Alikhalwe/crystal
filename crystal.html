@@ -124,8 +124,8 @@
                     beforeSend: function () { loading.show(); },
                     success: function (json) {
                         resultArea.empty();
-                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="tel:0' + json.n1 + '" style="padding: 10px;"><img src="call.png" style="width: 29px;"></a><a href="https://wa.me/' + json.n1 + '" style="padding: 10px;"><img src="whatsapp.png" style="width: 30px;"></a></li>');
-                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="mailto:KsaNumbersApp@gmail.com?subject=اسم مخالف رقم الجوال :'+json.n1+'" style="padding: 10px;color: white;text-decoration: none;">للبلاغ عن اسم مخالف</a></li>');
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="tel:0' + json.n1 + '" style="padding: 10px;"><img src="call.png" style="width: 30px;"></a><a href="https://wa.me/' + json.n1 + '" style="padding: 10px;"><img src="whatsapp.png" style="width: 30px;"></a></li>');
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="mailto:KsaNumbersApp@gmail.com?subject=اسم مخالف رقم الجوال :'+json.n1+'" style="padding: 10px;color: white;text-decoration: none;">📋للبلاغ عن اسم مخالف📝</a></li>');
 
                         for (let index = 0; index < json.n.length; index++) {
                             resultArea.append($('<li class="list-group-item" style="background: #3b4252;color: wheat;">').text(json.n[index]));
@@ -136,7 +136,7 @@
                         searchButton.prop('disabled', false);
                     },
                     error: function () {
-                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #f97f7f;">!حدث خطأ</li>');
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #f97f7f;">🙄!حدث خطأ</li>');
                     },
                 });
             };
