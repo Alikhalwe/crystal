@@ -31,7 +31,7 @@ body:after{
 body .particle{
     opacity:0;
     position:absolute;
-    background-color:#06c;
+    background-color:#FFFF00;
     -webkit-animation:bubbles 3s ease-in infinite;
     animation:bubbles 3s ease-in infinite;
     border-radius:100%
