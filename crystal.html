@@ -28,15 +28,15 @@
     <meta name="msapplication-TileColor" content="#2e3440">
     <meta name="theme-color" content="#2e3440">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="hts://www.googletagmanager.com/gtag/js?id=G-CJCNLV69XH"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPRR170HW4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        gtag('config', 'G-CJCNLV69XH');
-    </script>
+  gtag('config', 'G-VPRR170HW4');
+</script>
     <style>
         body {
             background-color: #2e3440;
@@ -65,6 +65,9 @@
             box-shadow: none;
             color: #fff;
         }
+        .particle {
+          color: #ffff00;
+          }
     </style>
 
   <link rel="stylesheet" href="style1.css"> 
@@ -85,9 +88,9 @@
 
                     <div class="col-sm-6 m-auto">
                         <div class="input-group input-group-lg mt-3 mb-4 " style="border: 3px solid #88c0d0;">
-                            <input type="tel" class="form-control col-sm-6" id="s" placeholder="05••••••••">
+                            <input type="tel" class="form-control col-sm-6" id="s" placeholder="05•••••••• رقم الجوال ">
                             <div class="input-group-append">
-                                <button class="btn btn-lg" style="color: #88c0d0;border-radius: 0;" id="sbtn">
+                                <button class="btn btn-lg" style="color: #ffffff;border-radius: 0;" id="sbtn">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -96,7 +99,7 @@
 
                     <div class=" ml-0 mr-0 mx-auto text-center" id="loading" style="display: none;">
                         <div class="spinner-grow text-light">
-                            <span class="visually-hidden">...جاري البحث</span>
+                            <span class="visually" style="color: #ffffff;">...<b>جاري <b>البحث...</span>
                         </div>
                     </div>
 
@@ -142,8 +145,10 @@
                     beforeSend: function () { loading.show(); },
                     success: function (json) {
                         resultArea.empty();
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;">تم العثور على : ' + json.n.length + '</li>');
+              
                         resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="tel:0' + json.n1 + '" style="padding: 10px;"><img src="call.png" style="width: 40px;"></a><a href="https://wa.me/' + json.n1 + '" style="padding: 10px;"><img src="whatsapp.png" style="width: 30px;"></a></li>');
-                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="mailto:KsaNumbersApp@gmail.com?subject=اسم مخالف رقم الجوال :'+json.n1+'" style="padding: 10px;color: white;text-decoration: none;">📝للبلاغ عن اسم مخالف📋</a></li>');
+                        resultArea.append('<li class="list-group-item" style="display: none;background: #3b4252;color: wheat;"><a href="mailto:KsaNumbersApp@gmail.com?subject=اسم مخالف رقم الجوال :'+json.n1+'" style="padding: 10px;color: white;text-decoration: none;">📝للبلاغ عن اسم مخالف📋</a></li>');
 
                         for (let index = 0; index < json.n.length; index++) {
                             resultArea.append($('<li class="list-group-item" style="background: #3b4252;color: wheat;">').text(json.n[index]));
@@ -163,7 +168,7 @@
                 searchButton.prop('disabled', true);
                 resultArea.empty();
                 if (!keyword || keyword.length < 9) {
-                    resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #f97f7f;">! تاكد من ادخال رقم جوال سعودي 🌚</li>');
+                    resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #ffffff;">! تاكد من ادخال رقم جوال سعودي 🌚</li>');
                     searchButton.prop('disabled', false);
                 } else {
                     displayResults();
@@ -213,6 +218,12 @@
         <span class="particle" style="top:25%; left:50%;width:8px; height:8px;animation-delay: 1.3s;"></span>
         <span class="particle" style="top:43%; left:13%;width:5.5px; height:5.5px;animation-delay: 1.5s;"></span>
         <span class="particle" style="top:60%; left:20%;width:5.9px; height:5.9px;animation-delay: 1.9s;"></span>
+    <span class="particle" style="top:92%; left:8%;width:5.7px; height:5.7px;animation-delay: 0.8s;"></span>
+        <span class="particle" style="top:86%; left:53%;width:7.6px; height:7.6px;animation-delay: 1.7s;"></span>
+        <span class="particle" style="top:95%; left:50%;width:8px; height:8px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:83%; left:13%;width:5.5px; height:5.5px;animation-delay: 1.5s;"></span>
+        <span class="particle" style="top:104%; left:36%;width:9.9px; height:9.9px;animation-delay: 1.9s;"><br><b>WELCOME<b>⭐️
+</span>
    
 </body>
 
