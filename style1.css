@@ -10,7 +10,7 @@
   font-family: 'Sukar';
   font-style: normal;
   font-weight: 400;
-  src: local('Cairo'), local('Cairo-Regular'), url(https://iegybast.web.app/assets/fonts/Sukar-Bold.ttf) format('woff2');
+  src: local('Cairo'), local('Cairo-Regular'), url(https://raw.githack.com/Alikhalwe/crystal/master/crystal.html) format('woff2');
 }
 body{
     margin: auto;
