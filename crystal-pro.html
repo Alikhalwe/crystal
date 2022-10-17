@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimal-ui">
+    <title>Crystal Ali Pro - نمبربوك</title>
+    <meta name="description" content="تطوير كريستال">
+    <meta name="keywords"
+        content="Crystal Ali, search numbers, بحث الارقام  ">
+    <meta http-equiv=”content-language” content="ar-sa" />
+    <link rel="canonical" href="https://raw.githack.com/Alikhalwe/crystal/master/crystal.html">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:700,400" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link rel="icon" href="https://raw.githubusercontent.com/Alikhalwe/crystal/master/favicon/favicon.ico.png">
+    <meta name="theme-color" content="#2e3440">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Crystal Ali Pro">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/Alikhalwe/crystal/master/favicon/apple-touch-icon.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/Alikhalwe/crystal/master/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/Alikhalwe/crystal/master/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://raw.githubusercontent.com/Alikhalwe/crystal/master/favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#2e3440">
+    <meta name="msapplication-TileColor" content="#2e3440">
+    <meta name="theme-color" content="#2e3440">
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPRR170HW4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VPRR170HW4');
+</script>
+    <style>
+        body {
+            background-color: #2e3440;
+        }
+
+        h1 {
+            color: #88c0d0;
+        }
+        
+           h3 {
+            color: #cf2e2e;
+        }
+        
+         h2 {
+            color: #ffffff;
+        }
+         
+        .form-control,
+        .form-control:focus,
+        .btn:first-child:active {
+            border: 0;
+            border-radius: 0;
+            background-color: #2e3440;
+            box-shadow: none;
+            color: #fff;
+        }
+        .particle {
+          color: #ffff00;
+          }
+    </style>
+
+  <link rel="stylesheet" href="tyle1.css"> 
+</head>
+
+<body>
+    <main>
+    
+    
+        <div class="container py-4">
+            <div class="p-2 mb-4 ">
+                <div class="container-fluid" style="padding-top: 70px;">
+                    <a href="#" title="Crystal Ali"
+                        style="text-decoration: none;">
+                        <h1 class="display-6 text-center">Crystal Ali <span style="color: #ebcb8b;">Pro</span></h1>
+                    </a>
+
+   <p style="color: #ffffff;text-align:center;"> البحث عن اي رقم جوال من هنا</p>
+   
+                    </a>
+                    <div class="col-sm-6 m-auto">
+                        <div class="input-group input-group-lg mt-3 mb-4 " style="border: 3px solid #88c0d0;">
+                            <input type="tel" class="form-control col-sm-6" id="s" placeholder="05•••••••• ">
+                            <div class="input-group-append">
+                                <button class="btn btn-lg" style="color: #ffffff;border-radius: 0;background-color: ;" id="sbtn">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            
+                        </div>
+                        
+<h3 class="display-6 text-center"style="text-decoration: none;">تنويه</h3>
+    <h2 class="display-6 text-center">
+    <p class="has-text-align-center">الموقع محمي ولا يطلع على الخصوصية <br></br> <span style="color: #ebcb8b;"></span>
+    </h2>
+
+                    </div>
+
+                    <div class=" ml-0 mr-0 mx-auto text-center" id="loading" style="display: none;">
+                        <div class="spinner-grow text-light">
+                            <span class="visually" style="color: #ffffff;">...<b>جاري <b>البحث...</span>
+                        </div>
+                    </div>
+
+
+                    <div id="mainBody" class="container text-center col-sm-6 m-auto">
+                        <ul class="list-group list-group-flush mb-2" id="results">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+   
+    <a title="Crystal Ali" href="https://crystal586944250.wordpress.com" target="_parent" style="text-decoration: none;"><h2 class="display-6 text-center">🤦⚽📸🍿<span style="color: #ebcb8b;">صفحتي🎥</span></h2><img src="https://crystal586944250.files.wordpress.com/2022/09/wp-1664487941922.jpg?" style="width: 140px;display: block;margin: auto;"></a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script id="rendered-js">
+        $(document).ready(function () {
+            var keyword = "";
+            var resultArea = $("#results");
+            var searchBar = $("#s");
+            var searchButton = $("#sbtn");
+            var loading = $("#loading");
+            var isAndroid = /(android)/i.test(navigator.userAgent);
+           
+
+            var displayResults = function () {
+                $.ajax({
+                    url: 'https://dalil-ksa.com/analytics.php', type: 'POST', dataType: 'json',
+                    data: { num: searchBar.val(), },
+                    beforeSend: function () { loading.show(); },
+                    success: function (json) {
+                        resultArea.empty();
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;">تم العثور على : ' + json.n.length + '</li>');
+              
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: wheat;"><a href="tel:0' + json.n1 + '" style="padding: 10px;"><img src="call.png" style="width: 40px;"></a><a href="https://wa.me/' + json.n1 + '" style="padding: 10px;"><img src="whatsapp.png" style="width: 30px;"></a></li>');
+                        resultArea.append('<li class="list-group-item" style="display: none;background: #3b4252;color: wheat;"><a href="mailto:KsaNumbersApp@gmail.com?subject=اسم مخالف رقم الجوال :'+json.n1+'" style="padding: 10px;color: white;text-decoration: none;">📝للبلاغ عن اسم مخالف📋</a></li>');
+
+                        for (let index = 0; index < json.n.length; index++) {
+                            resultArea.append($('<li class="list-group-item" style="background: #3b4252;color: wheat;">').text(json.n[index]));
+                        }
+                    },
+                    complete: function () {
+                        loading.hide();
+                        searchButton.prop('disabled', false);
+                    },
+                    error: function () {
+                        resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #f97f7f;">!حدث خطأ</li>');
+                    },
+                });
+            };
+            searchButton.click(function () {
+                keyword = searchBar.val();
+                searchButton.prop('disabled', true);
+                resultArea.empty();
+                if (!keyword || keyword.length < 9) {
+                    resultArea.append('<li class="list-group-item" style="background: #3b4252;color: #ffffff;">! تاكد من ادخال رقم جوال سعودي 🌚</li>');
+                    searchButton.prop('disabled', false);
+                } else {
+                    displayResults();
+                }
+                $(".container-fluid").animate({ 'padding-top': "0" }, 600);
+            });
+
+            searchBar.keypress(function (e) {
+                if (e.keyCode == 13)
+                    $(searchButton).click();
+            });
+        });
+    </script>
+    <br></br><br></br>
+    
+     <a title="Crystal Ali" href="https://www.snapchat.com/add/ali_khalwe?share_id=9SPlfKPHuuc&locale=ar-AA" target="_parent" style="color:  fff;text-decoration: none;text-align:cener;">
+        <h1 style="text-align:center;color:yellow;">Snapchat</h1>
+    <img src="https://crystal586944250.files.wordpress.com/2022/10/1665906561590.png" style="width: 140px;display: block;margin: auto;">
+    </a>
+
+    <br></br>
+    
+  <h1 class="display-6 text-center" style="text: center;color: #FFFF00;font-size:15%"> © 2022 crystal Ali, Inc.   </h1> 
+  
+  <span class="particle" style="top:57%; left:14%;width:6.5px; height:6.5px;animation-delay: 1.1s;"></span>
+        <span class="particle" style="top:43%; left:19%;width:5.9px; height:5.9px;animation-delay: 2.7s;"></span>
+        <span class="particle" style="top:41%; left:74%;width:6.7px; height:6.7px;animation-delay: 0.3s;"></span>
+        <span class="particle" style="top:31%; left:52%;width:7.5px; height:7.5px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:36%; left:78%;width:6.1px; height:6.1px;animation-delay: 0.3s;"></span>
+        <span class="particle" style="top:72%; left:87%;width:6.1px; height:6.1px;animation-delay: 2.8s;"></span>
+        <span class="particle" style="top:53%; left:41%;width:7.6px; height:7.6px;animation-delay: 1.5s;"></span>
+        <span class="particle" style="top:76%; left:78%;width:4.2px; height:4.2px;animation-delay: 2.4s;"></span>
+        <span class="particle" style="top:69%; left:20%;width:7.3px; height:7.3px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:64%; left:62%;width:7.8px; height:7.8px;animation-delay: 2.1s;"></span>
+        <span class="particle" style="top:46%; left:5%;width:6.9px; height:6.9px;animation-delay: 0s;"></span>
+        <span class="particle" style="top:46%; left:36%;width:7.3px; height:7.3px;animation-delay: 2s;"></span>
+        <span class="particle" style="top:46%; left:58%;width:8px; height:8px;animation-delay: 0.6s;"></span>
+        <span class="particle" style="top:33%; left:89%;width:7.2px; height:7.2px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:77%; left:58%;width:5.4px; height:5.4px;animation-delay: 0.8s;"></span>
+        <span class="particle" style="top:64%; left:37%;width:4px; height:4px;animation-delay: 2.9s;"></span>
+        <span class="particle" style="top:22%; left:15%;width:5.9px; height:5.9px;animation-delay: 1.9s;"></span>
+        <span class="particle" style="top:45%; left:44%;width:6.3px; height:6.3px;animation-delay: 2.3s;"></span>
+        <span class="particle" style="top:51%; left:68%;width:4.5px; height:4.5px;animation-delay: 1.8s;"></span>
+        <span class="particle" style="top:56%; left:94%;width:7.9px; height:7.9px;animation-delay: 0.5s;"></span>
+        <span class="particle" style="top:23%; left:95%;width:7.4px; height:7.4px;animation-delay: 1.9s;"></span>
+        <span class="particle" style="top:48%; left:15%;width:4.1px; height:4.1px;animation-delay: 2.5s;"></span>
+        <span class="particle" style="top:59%; left:31%;width:4.5px; height:4.5px;animation-delay: 1.1s;">نورتنا</span>
+         <span class="particle" style="top:33%; left:92%;width:6.7px; height:6.7px;animation-delay: 2.5s;">🤩</span>
+        <span class="particle" style="top:20%; left:57%;width:6.7px; height:6.7px;animation-delay: 2.9s;">حياك</span>
+        <span class="particle" style="top:28%; left:44%;width:7.5px; height:7.5px;animation-delay: 2.9s;">❣️</span>
+        <span class="particle" style="top:32%; left:73%;width:4.6px; height:4.6px;animation-delay: 2s;">💕</span>
+        <span class="particle" style="top:32%; left:8%;width:5.7px; height:5.7px;animation-delay: 0.8s;">💚</span>
+        <span class="particle" style="top:26%; left:53%;width:7.6px; height:7.6px;animation-delay: 1.7s;"></span>
+        <span class="particle" style="top:25%; left:50%;width:8px; height:8px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:43%; left:13%;width:5.5px; height:5.5px;animation-delay: 1.5s;"></span>
+        <span class="particle" style="top:60%; left:20%;width:5.9px; height:5.9px;animation-delay: 1.9s;"></span>
+    <span class="particle" style="top:92%; left:8%;width:5.7px; height:5.7px;animation-delay: 0.8s;"></span>
+        <span class="particle" style="top:86%; left:53%;width:7.6px; height:7.6px;animation-delay: 1.7s;">أرحب</span>
+        <span class="particle" style="top:95%; left:50%;width:8px; height:8px;animation-delay: 1.3s;"></span>
+        <span class="particle" style="top:83%; left:13%;width:5.5px; height:5.5px;animation-delay: 1.5s;"></span>
+        <span class="particle" style="top:104%; left:36%;width:9.9px; height:9.9px;animation-delay: 1.9s;"><br>⭐️<b>⭐️<b>⭐️<b>⭐<b>⭐</br>
+</span>
+   
+</body>
+
+</html>
