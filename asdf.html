@@ -341,7 +341,7 @@
 
             var displayResults = function () {
                 $.ajax({
-                    url: 'https://xn--ngba0a3egfs.com/captcha.php', type: 'POST', dataType: 'json',
+                    url: '/captcha.php', type: 'POST', dataType: 'json',
                     data: { num: searchBar.val(), },
                     beforeSend: function () { loading.show(); },
                     success: function (json) {
@@ -398,7 +398,7 @@
     <br><br>
     <p>
    
-                <form id="search-form" method="get">
+                <form id="search-form" method="POST">
                     <input type="tel" class="input" name="phoneNumber" data-name="phoneNumber" placeholder="05–------" style="width: 85%;text-align: center;letter-spacing: 2px;" id="phoneNumber" required="" value="">
                     <div class="captcha-box">
                         <img src="https://xn--ngba0a3egfs.com/captcha.php">
