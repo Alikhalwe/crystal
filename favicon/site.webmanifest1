@@ -1,6 +1,6 @@
 {
     "name": "Ali Khalwe",
-    "short_name": "بحث الأرقام تطوير Ali Khalwe",
+    "short_name": "بحث الأرقام تطوير Ali Khalwe PRO",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -15,7 +15,7 @@
     ],
     "theme_color": "#2e3440",
     "background_color": "#2e3440",
-    "start_url": "https://raw.githack.com/Alikhalwe/crystal/master/a.html",
+    "start_url": "https://raw.githack.com/Alikhalwe/pro/master/a.html",
     "display": "standalone"
 }
  
