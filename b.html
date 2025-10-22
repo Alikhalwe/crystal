@@ -53,7 +53,7 @@
     }
 
     body.dark .container {
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(30, 41, 59, 0.9);
     }
 
     input[type="text"] {
@@ -148,6 +148,28 @@
       background: var(--accent);
     }
 
+    .share-btn {
+      display: inline-block;
+      padding: 8px 14px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00c4ff;
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .share-btn:hover {
+      background-color: #0078ff;
+    }
+
+    body.dark .share-btn {
+      background-color: #00c4ff;
+      color: #1e293b;
+    }
+
     @media (max-width: 600px) {
       .container { margin: 1rem; padding: 1rem; }
       header { font-size: 1.2rem; }
@@ -167,10 +189,13 @@
   </div>
 
   <script>
-    // ✅ Theme toggle
+    // Theme toggle
     const body = document.body;
     const themeBtn = document.getElementById('themeBtn');
-    if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      themeBtn.textContent = '☀️';
+    }
 
     themeBtn.onclick = () => {
       body.classList.toggle('dark');
@@ -179,7 +204,7 @@
       themeBtn.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
     };
 
-    // ✅ Search logic
+    // Search logic
     const searchBtn = document.getElementById('searchBtn');
     const numberInput = document.getElementById('numberInput');
     const loader = document.getElementById('loader');
@@ -198,7 +223,7 @@
         const response = await fetch('https://dalil-ksa.com/analytics.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({ number })
+          body: new URLSearchParams({ num: number })
         });
 
         const json = await response.json();
@@ -207,10 +232,11 @@
         if (json && (json.n || json.name)) {
           results.innerHTML = `
             <div class="card">
-              <h3>📞 الاسم: ${json.name || json.n || 'غير معروف'}</h3>
+              <h3>📞 الاسم: ${json.name || json.n1 || 'غير معروف'}</h3>
               <p>📱 الرقم: ${number}</p>
               <p>🌍 الدولة: ${json.country || 'السعودية'}</p>
               <p>💬 ملاحظات: ${json.note || 'لا توجد معلومات إضافية'}</p>
+              <button class="share-btn" onclick="shareResult('${number}')">🔗 مشاركة الرقم</button>
             </div>
           `;
         } else {
@@ -221,6 +247,13 @@
         results.innerHTML = '<p style="color:red;">حدث خطأ أثناء الاتصال بالخادم ⚠️</p>';
       }
     });
+
+    // Share function
+    function shareResult(number) {
+      const text = `رقم الهاتف: ${number}`;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+    }
   </script>
 
 </body>
